@@ -11,7 +11,7 @@
 
 return [
     // 数据库类型
-    'type'           => 'mysql',
+    'type'           => 'mysql1',
     // 服务器地址
     'hostname'       => 'rm-m5eplz322m46hsko4.mysql.rds.aliyuncs.com',
     // 数据库名
