@@ -13,15 +13,15 @@ return [
     // 数据库类型
     'type'           => 'mysql',
     // 服务器地址
-    'hostname'       => '127.0.0.1',
+    'hostname'       => 'rm-m5eplz322m46hsko4.mysql.rds.aliyuncs.com',
     // 数据库名
-    'database'       => '',
+    'database'       => 'manshe',
     // 用户名
-    'username'       => 'root',
+    'username'       => 'work',
     // 密码
-    'password'       => '',
+    'password'       => '1234Qwer',
     // 端口
-    'hostport'       => '',
+    'hostport'       => '3306',
     // 连接dsn
     'dsn'            => '',
     // 数据库连接参数
