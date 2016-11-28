@@ -24,29 +24,32 @@ class UserAddress extends Base
     }
     public function add()
     {
-        $result = $this->check($this->request->param());
-        return var_dump($result);
-        var_dump("Insert userAddress Ok.");
+        $param = $this->request->param();
+        $result = $this->check($param);
         if($result) {
             $address = new UserAddressModel();
-            $address->address_name = $param['user_id'];
+            /*
+            $address->user_id= $param['user_id'];
             $address->address_name = $param['address_name'];
-            $address->address_name = $param['consignee'];
-            $address->address_name = $param['country'];
-            $address->address_name = $param['province'];
-            $address->address_name = $param['city'];
-            $address->address_name = $param['district'];
-            $address->address_name = $param['address'];
-            $address->address_name = $param['zipcode'];
-            $address->address_name = $param['zipcode'];
-            $address->address_name = $param['tel'];
-            $address->address_name = $param['mobile'];
-            if ($address->save()) {
+            $address->consignee = $param['consignee'];
+            $address->country = $param['country'];
+            $address->province = $param['province'];
+            $address->province = $param['city'];
+            $address->district = $param['district'];
+            $address->address = $param['address'];
+            $address->zipcode = $param['zipcode'];
+            $address->tel = $param['tel'];
+            $address->mobile = $param['mobile'];
+            */
+            $address->data($param);
+            $result = $address->save();
+            var_dump($result);
+            if ($result) {
                 Log::info("Insert UserAddress OK");
-                return true;
+                return "ok";
             } else {
                 Log::info("Insert UserAddress Failed");
-                return false;
+                return "failed";
             }
         }
     }
