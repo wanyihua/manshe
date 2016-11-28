@@ -27,31 +27,28 @@ class UserAddress extends Base
         $result = $this->check($this->request->param());
         return var_dump($result);
         var_dump("Insert userAddress Ok.");
-        /*
-           $address = new UserAddressModel();
-           $address->address_name = $param['user_id'];
-           $address->address_name = $param['address_name'];
-           $address->address_name = $param['consignee'];
-           $address->address_name = $param['country'];
-           $address->address_name = $param['province'];
-           $address->address_name = $param['city'];
-           $address->address_name = $param['district'];
-           $address->address_name = $param['address'];
-           $address->address_name = $param['zipcode'];
-           $address->address_name = $param['zipcode'];
-           $address->address_name = $param['tel'];
-           $address->address_name = $param['mobile'];
-           if($address->save())
-           {
-           Log::info("Insert UserAddress OK");
-           return true;
-           }
-           else
-           {
-           Log::info("Insert UserAddress Failed");
-           return false;
-           }
-         */
+        if($result) {
+            $address = new UserAddressModel();
+            $address->address_name = $param['user_id'];
+            $address->address_name = $param['address_name'];
+            $address->address_name = $param['consignee'];
+            $address->address_name = $param['country'];
+            $address->address_name = $param['province'];
+            $address->address_name = $param['city'];
+            $address->address_name = $param['district'];
+            $address->address_name = $param['address'];
+            $address->address_name = $param['zipcode'];
+            $address->address_name = $param['zipcode'];
+            $address->address_name = $param['tel'];
+            $address->address_name = $param['mobile'];
+            if ($address->save()) {
+                Log::info("Insert UserAddress OK");
+                return true;
+            } else {
+                Log::info("Insert UserAddress Failed");
+                return false;
+            }
+        }
     }
 
     public function check($param)
