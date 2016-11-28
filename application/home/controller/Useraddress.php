@@ -59,7 +59,7 @@ class UserAddress extends Base
         $rule = [
             'address_name' => 'require|max:25',
             'user_id' => 'require',
-            'consignee' => 'require ',
+            'consignee' => 'require',
             'address' => 'require',
             'mobile' => 'require',
             'province' => 'require',
