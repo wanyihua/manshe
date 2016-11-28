@@ -54,7 +54,7 @@ class UserAddress extends Base
          */
     }
 
-    public function check()
+    public function check($param)
     {
         $rule = [
             'address_name' => 'require|max:25',
@@ -67,16 +67,16 @@ class UserAddress extends Base
             'district' => 'require',
         ];
         $msg = [
-            'address_name.require' => 'Ãû³Æ±ØÐë',
-            'address_name.max' => 'Ãû³Æ×î¶à²»ÄÜ³¬¹ý25¸ö×Ö·û',
-            'user_id.require' => 'userid±ØÐë',
-            'consignee.require' => 'consignee±ØÐë',
-            'address.require' => 'address±ØÐë',
-            'mobile.require' => 'mobile±ØÐë',
-            'province.require' => 'province±ØÐë',
-            'city.require' => 'city±ØÐë',
-            'district.require' => 'district±ØÐë',
-            'age.number' => 'ÄêÁä±ØÐëÊÇÊý×Ö',
+            'address_name.require' => 'åç§°å¿…é¡»',
+            'address_name.max' => 'åç§°æœ€å¤šä¸èƒ½è¶…è¿‡25ä¸ªå­—ç¬¦',
+            'user_id.require' => 'useridå¿…é¡»',
+            'consignee.require' => 'consigneeå¿…é¡»',
+            'address.require' => 'addresså¿…é¡»',
+            'mobile.require' => 'mobileå¿…é¡»',
+            'province.require' => 'provinceå¿…é¡»',
+            'city.require' => 'cityå¿…é¡»',
+            'district.require' => 'districtå¿…é¡»',
+            'age.number' => 'å¹´é¾„å¿…é¡»æ˜¯æ•°å­—',
         ];
         $data = [
             'name' => 'thinkphp',
