@@ -13,16 +13,18 @@ use think\Controller;
 use think\Log;
 use app\home\model\UserAddress as UserAddressModel;
 use think\Validate;
+use think\Request;
 
-class UserAddress extends Controller
+class UserAddress extends Base
 {
-    public function __construct()
+    protected $request;
+    public function __construct(Request $request)
     {
-
+        $this->request = $request;
     }
-    public function add($param)
+    public function add()
     {
-        $result = $this->validate($param);
+        $result = $this->check($this->request->param());
         return var_dump($result);
         var_dump("Insert userAddress Ok.");
         /*
@@ -52,7 +54,7 @@ class UserAddress extends Controller
          */
     }
 
-    public function validate($param)
+    public function check()
     {
         $rule = [
             'address_name' => 'require|max:25',
