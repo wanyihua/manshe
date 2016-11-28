@@ -12,20 +12,18 @@ namespace app\home\controller;
 use think\Controller;
 use think\Log;
 use app\home\model\UserAddress as UserAddressModel;
+use think\Validate;
 
 class UserAddress extends Controller
 {
+    public function __construct()
+    {
+
+    }
     public function add($param)
     {
-        //  \think\Validate éªŒè¯å™¨
-        $rules = [
-            'name' => 'require|max:25',
-            'age' => 'number|between:1,120',
-            ];
-        $validate = new Validate($rules);
-
-
-
+        $result = $this->validate($param);
+        return var_dump($result);
         var_dump("Insert userAddress Ok.");
         /*
            $address = new UserAddressModel();
@@ -52,6 +50,43 @@ class UserAddress extends Controller
            return false;
            }
          */
+    }
+
+    public function validate($param)
+    {
+        $rule = [
+            'address_name' => 'require|max:25',
+            'user_id' => 'require',
+            'consignee' => 'require ',
+            'address' => 'require',
+            'mobile' => 'require',
+            'province' => 'require',
+            'city' => 'require',
+            'district' => 'require',
+        ];
+        $msg = [
+            'address_name.require' => 'Ãû³Æ±ØÐë',
+            'address_name.max' => 'Ãû³Æ×î¶à²»ÄÜ³¬¹ý25¸ö×Ö·û',
+            'user_id.require' => 'userid±ØÐë',
+            'consignee.require' => 'consignee±ØÐë',
+            'address.require' => 'address±ØÐë',
+            'mobile.require' => 'mobile±ØÐë',
+            'province.require' => 'province±ØÐë',
+            'city.require' => 'city±ØÐë',
+            'district.require' => 'district±ØÐë',
+            'age.number' => 'ÄêÁä±ØÐëÊÇÊý×Ö',
+        ];
+        $data = [
+            'name' => 'thinkphp',
+            'age' => 121,
+            'email' => 'thinkphp@qq.com',
+        ];
+        $validate = new Validate($rule,$msg);
+        $result = $validate->check($param);
+        if(!$result){
+            return $validate->getError();
+        }
+        return $result;
     }
 }
 
