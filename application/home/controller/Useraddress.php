@@ -2,58 +2,133 @@
 /**
  * Create By: PhpStorm
  * User: yihua
- * File: UserAddress.php
+ * File: Useraddress.php
  * Date: 2016/11/27
  * Time: 23:48
  */
 
 namespace app\home\controller;
 
+use app\home\library\Flag;
 use think\Controller;
-use think\Log;
-use app\home\model\UserAddress as UserAddressModel;
-use think\Validate;
 use think\Request;
+use think\Validate;
+use think\Db;
 
-class UserAddress extends Base
+use app\home\controller\Base as BaseController;
+use app\home\library\Error;
+use app\home\model\UserAddress as UserAddressModel;
+
+class UserAddress extends BaseController
 {
-    protected $request;
-    public function __construct(Request $request)
+    private $tableUserAddress;
+    private $table_name = 'user_address';
+    private $param;
+
+    public function __construct()
     {
-        $this->request = $request;
+        parent::__construct();
+        $this->userAddress = new UserAddressModel();
+        $this->tableUserAddress = Db::table('user_address');
+        $this->param = Request::instance()->param();
     }
-    public function add()
+
+    /**
+     * @return array
+     * @DESC 增加用户收货地址
+     */
+    public function addUserAddress()
     {
-        $param = $this->request->param();
-        $result = $this->check($param);
-        if($result) {
-            $address = new UserAddressModel();
-            /*
-            $address->user_id= $param['user_id'];
-            $address->address_name = $param['address_name'];
-            $address->consignee = $param['consignee'];
-            $address->country = $param['country'];
-            $address->province = $param['province'];
-            $address->province = $param['city'];
-            $address->district = $param['district'];
-            $address->address = $param['address'];
-            $address->zipcode = $param['zipcode'];
-            $address->tel = $param['tel'];
-            $address->mobile = $param['mobile'];
-            */
-            $address->data($param);
-            $result = $address->save();
-            var_dump($result);
-            if ($result) {
-                Log::info("Insert UserAddress OK");
-                return "ok";
-            } else {
-                Log::info("Insert UserAddress Failed");
-                return "failed";
-            }
+        // $param = Request::instance()->param();
+
+        if (!$this->check($this->param)) {
+            return $this->getRes(Error::ERR_PARAM);
+        }
+        //每个用户只能保存5个地址
+        $arrAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
+        if (count($arrAddress) >= Flag::ADDRESS_MAX) {
+            return $this->getRes(Error::ERR_USER_ADDRESS_MAX);
+        }
+
+        $result = $this->userAddress->addAddress($this->param);
+        if ($result === false) {
+            return $this->getRess(Error::ERR_SYS);
+        } else {
+            return $this->getRes();
         }
     }
 
+    /**
+     * @return array
+     * @DESC 删除收货地址
+     */
+    public function removeUserAddress()
+    {
+        if (!isset($this->param['address_id'])) {
+            return $this->getRes(Error::ERR_PARAM);
+        }
+        /*
+        $arrData = array(
+            'status' => Flag::ADDRESS_STATUS_DELETED,
+        );
+        $res = $this->tableUserAddress->where('address_id', $param['address_id'])->update($arrData);
+        */
+        $res = $this->userAddress->removeAddress($this->param['address_id']);
+        if ($res != 0) {
+            return $this->getRes();
+        } else {
+            $this->data = $res;
+            return $this->getRes(Error::ERR_USER_ADDRES_REMOVE);
+        }
+    }
+
+    /**
+     * @return array
+     * @DESC 更新收货地址
+     */
+    public function updateUseraddress()
+    {
+        if(!isset($this->param['address_id']))
+        {
+            return $this->getRes(Error::ERR_PARAM);
+        }
+        $res = $this->userAddress->updateAddress($this->param);
+        if(false === $res)
+        {
+            return $this->getRes(Error::ERR_USER_ADDRES_UPDATE);
+        }
+        else
+        {
+            return $this->getRes();
+        }
+    }
+
+    /**
+     * @return array
+     * @DESC 获取用户收货地址
+     */
+    public function getUserAddress()
+    {
+        //默认查询有效的地址
+        //$this->data = Db::table($this->table_name)->where('status',1)->field('create_time,update_time',true)->select();
+        if (!isset($this->param['user_id'])) {
+            return $this->getRes(Error::ERR_PARAM);
+        }
+        $res = $this->userAddress->getAddressByUserid($this->param['user_id']);
+        if ($res) {
+            $this->data = $res;
+            return $this->getRes();
+        } else {
+            return $this->getRes(Error::ERR_SYS);
+        }
+    }
+
+
+    /**
+     * @param $param
+     * @return array|bool
+     * @DESC 验证接口字段
+     */
     public function check($param)
     {
         $rule = [
@@ -83,12 +158,13 @@ class UserAddress extends Base
             'age' => 121,
             'email' => 'thinkphp@qq.com',
         ];
-        $validate = new Validate($rule,$msg);
+        $validate = new Validate($rule, $msg);
         $result = $validate->check($param);
-        if(!$result){
+        if (!$result) {
             return $validate->getError();
         }
         return $result;
     }
+
 }
 
