@@ -77,21 +77,7 @@ class UserAddress extends Model
             }
             $field[$key] = $value;
         }
-        var_dump($field);
         return $this->isUpdate(true)->save($field,$conds);
     }
-    /**
-     * @param $address_id
-     * @throws \think\Exception
-     */
-    public function setDefaultAddress($address_id)
-    {
-        $conds = array(
-            'address_id' => $address_id,
-        );
-        $field = array(
-            'is_default' => Flag::ADDRESS_DEFAUL_ON,
-        );
-        $this->where($conds)->update($field);
-    }
+
 }

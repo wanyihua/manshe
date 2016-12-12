@@ -10,7 +10,6 @@ namespace app\home\controller;
 
 use think\Controller;
 use app\home\library\Error;
-use think\Log;
 
 
 class Base extends Controller

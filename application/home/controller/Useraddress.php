@@ -10,10 +10,10 @@
 namespace app\home\controller;
 
 use app\home\library\Flag;
-use think\Controller;
 use think\Request;
 use think\Validate;
 use think\Db;
+use think\Log;
 
 use app\home\controller\Base as BaseController;
 use app\home\library\Error;
@@ -43,6 +43,23 @@ class UserAddress extends BaseController
 
         if (!$this->check($this->param)) {
             return $this->getRes(Error::ERR_PARAM);
+        }
+        if (isset($this->param['is_default'])) {
+            //查找出默认的地址，置为非默认地址
+            $arrUserAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
+            if ($arrUserAddress != 0) {
+                $conds = array(
+                    'user_id' => $this->param['user_id'],
+                );
+                $field = array(
+                    'is_default' => Flag::ADDRESS_DEFAUL_OFF,
+                );
+                $res = $this->userAddress->where($conds)->update($field);
+                if ($res != 0) {
+                    Log::notice("change  old default address status to anti-default,address_id: " . var_export($arrUserAddress, true));
+                    Log::notice("change  old default address status to anti-default,address_id: " . json_encode($arrUserAddress));
+                }
+            }
         }
         //每个用户只能保存5个地址
         $arrAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
@@ -88,17 +105,13 @@ class UserAddress extends BaseController
      */
     public function updateUseraddress()
     {
-        if(!isset($this->param['address_id']))
-        {
+        if (!isset($this->param['address_id'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
         $res = $this->userAddress->updateAddress($this->param);
-        if(false === $res)
-        {
+        if (false === $res) {
             return $this->getRes(Error::ERR_USER_ADDRES_UPDATE);
-        }
-        else
-        {
+        } else {
             return $this->getRes();
         }
     }
@@ -165,6 +178,5 @@ class UserAddress extends BaseController
         }
         return $result;
     }
-
 }
 

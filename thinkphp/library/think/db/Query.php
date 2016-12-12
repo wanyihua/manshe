@@ -10,7 +10,6 @@
 // +----------------------------------------------------------------------
 
 namespace think\db;
-
 use PDO;
 use think\Cache;
 use think\Collection;
