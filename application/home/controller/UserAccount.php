@@ -19,7 +19,7 @@ use app\home\controller\Base as BaseController;
 use app\home\library\Error;
 use app\home\model\UserAccount as UserAccountModel;
 
-class UserAddress extends BaseController
+class UserAccount extends BaseController
 {
     private $param;
 
