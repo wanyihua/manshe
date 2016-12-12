@@ -93,11 +93,11 @@ class UserAccount extends BaseController
     {
         $rule = [
             'user_name' => 'require|max:16',
-            'user_id' => 'require|max:16',
+            'nick_name' => 'require|max:16',
         ];
         $msg = [
             'user_name.require' => '名称必须且最多16个字符',
-            'nick_name.max' => '昵称最多不能超过16个字符',
+            'nick_name.max'     => '昵称最多不能超过16个字符',
         ];
         $validate = new Validate($rule, $msg);
         $result = $validate->check($param);
