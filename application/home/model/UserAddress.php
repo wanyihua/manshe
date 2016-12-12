@@ -9,14 +9,16 @@
 namespace app\home\model;
 
 use think\Model;
+use think\Db;
 
 use app\home\library\Flag;
 
 class UserAddress extends Model
 {
     //set talbename
-    protected $name = "user_address";
-
+    protected $table = 'user_address';
+    //set primary key
+    protected $pk = 'address_id';
 
     /**
      * @param $user_id
@@ -25,11 +27,18 @@ class UserAddress extends Model
      */
     public function getAddressByUserid($user_id)
     {
+        /*
         $conds = array(
             'user_id' => $user_id,
             'status' => Flag::ADDRESS_STATUS_ACTIVE,
         );
-        return $this->where($conds)->field('create_time,update_time',true)->select();
+        */
+        $conds = array(
+            'user_id' => ['=',$user_id],
+            'status' => ['=',Flag::ADDRESS_DEFAUL_ON],
+        );
+        $filter = 'create_time,update_time';
+        return Db::table($this->table)->where($conds)->field($filter,true)->select();
     }
 
 
@@ -77,21 +86,7 @@ class UserAddress extends Model
             }
             $field[$key] = $value;
         }
-        var_dump($field);
         return $this->isUpdate(true)->save($field,$conds);
     }
-    /**
-     * @param $address_id
-     * @throws \think\Exception
-     */
-    public function setDefaultAddress($address_id)
-    {
-        $conds = array(
-            'address_id' => $address_id,
-        );
-        $field = array(
-            'is_default' => Flag::ADDRESS_DEFAUL_ON,
-        );
-        $this->where($conds)->update($field);
-    }
+
 }
