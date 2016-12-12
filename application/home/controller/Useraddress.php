@@ -84,12 +84,6 @@ class UserAddress extends BaseController
         if (!isset($this->param['address_id'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
-        /*
-        $arrData = array(
-            'status' => Flag::ADDRESS_STATUS_DELETED,
-        );
-        $res = $this->tableUserAddress->where('address_id', $param['address_id'])->update($arrData);
-        */
         $res = $this->userAddress->removeAddress($this->param['address_id']);
         if ($res != 0) {
             return $this->getRes();
