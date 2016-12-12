@@ -38,10 +38,11 @@ class UserAccount extends BaseController
      */
     public function addUser()
     {
-        if (!$this->check($this->param)) {
-            return $this->getRes(Error::ERR_PARAM);
+        $strErrmsg = $this->check($this->param);
+        if ($strErrmsg) {
+            return $this->getRes(Error::ERR_PARAM, $strErrmsg);
         }
-        
+        return $this->getRes();
     }
 
     /**
@@ -91,6 +92,8 @@ class UserAccount extends BaseController
      */
     private function check($param)
     {
+        $errmsg = '';
+        
         $rule = [
             'user_name' => 'require|max:16',
             'nick_name' => 'require|max:16',
@@ -102,9 +105,9 @@ class UserAccount extends BaseController
         $validate = new Validate($rule, $msg);
         $result = $validate->check($param);
         if (!$result) {
-            return $validate->getError();
+            $errmsg = $validate->getError();
         }
-        return $result;
+        return $errmsg;
     }
 
 }
