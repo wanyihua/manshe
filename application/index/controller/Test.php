@@ -5,6 +5,6 @@ class Test
 {
     public function test()
     {
-        return 'sss';
+        return array('a'=>1, 'b'=>'c');
     }
 }
