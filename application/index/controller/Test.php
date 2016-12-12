@@ -1,9 +1,9 @@
 <?php
 namespace app\index\controller;
 
-class Index
+class Test
 {
-    public function index()
+    public function test()
     {
         return 'sss';
     }
