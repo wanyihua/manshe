@@ -21,4 +21,6 @@ return [
     'useraddress/getuseraddress' => 'home/useraddress/getUseraddress',//查询用户有效地址
     'useraddress/removeuseraddress' => 'home/useraddress/removeUseraddress',//删除用户地址
     'useraddress/updateuseraddress' => 'home/useraddress/updateUseraddress',//删除用户地址
+    
+    'useraccount/adduser' => 'home/useraccount/addUser',//新增用户
 ];
