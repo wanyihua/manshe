@@ -9,14 +9,14 @@
 
 namespace app\home\controller;
 
-use app\home\library\Flag;
 use think\Request;
 use think\Validate;
 use think\Db;
 use think\Log;
 
-use app\home\controller\Base as BaseController;
-use app\home\library\Error;
+use app\library\Base as BaseController;
+use app\library\Error;
+use app\library\Flag;
 use app\home\model\UserAddress as UserAddressModel;
 
 class UserAddress extends BaseController

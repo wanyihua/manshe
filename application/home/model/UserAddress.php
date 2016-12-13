@@ -11,7 +11,7 @@ namespace app\home\model;
 use think\Model;
 use think\Db;
 
-use app\home\library\Flag;
+use app\library\Flag;
 
 class UserAddress extends Model
 {
