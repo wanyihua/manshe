@@ -27,18 +27,12 @@ class UserAddress extends Model
      */
     public function getAddressByUserid($user_id)
     {
-        /*
-        $conds = array(
-            'user_id' => $user_id,
-            'status' => Flag::ADDRESS_STATUS_ACTIVE,
-        );
-        */
         $conds = array(
             'user_id' => ['=',$user_id],
             'status' => ['=',Flag::ADDRESS_DEFAUL_ON],
         );
-        $filter = 'create_time,update_time';
-        return Db::table($this->table)->where($conds)->field($filter,true)->select();
+        $field = 'create_time,update_time';
+        return Db::table($this->table)->where($conds)->field($field,true)->select();
     }
 
 

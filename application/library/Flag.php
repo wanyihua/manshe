@@ -18,4 +18,6 @@ class Flag
 
     const USER_FAVORITE_ACTIVE = 1;
     const USER_FAVORITE_DELETED = 0;
+    const USER_FAVORITE_TYPE_GOODS = 1;//商品
+    const USER_FAVORITE_TYPE_ARTICLE = 2;//帖子
 }

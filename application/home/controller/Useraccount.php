@@ -15,11 +15,11 @@ use think\Request;
 use think\Validate;
 use think\Db;
 
-//use app\library\Base as BaseController;
-use app\library\Error;
+use app\home\controller\Base as BaseController;
+use app\home\library\Error;
 use app\home\model\UserAccount as UserAccountModel;
 
-class UserAccount extends Base
+class UserAccount extends BaseController
 {
     private $param;
 
