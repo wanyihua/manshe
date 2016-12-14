@@ -9,19 +9,18 @@
 
 namespace app\home\controller;
 
-use app\home\library\Flag;
-use think\Controller;
 use think\Request;
 use think\Validate;
 use think\Db;
 
-use app\home\controller\Base as BaseController;
-use app\home\library\Error;
+use app\library\Base as BaseController;
+use app\library\Error;
 use app\home\model\UserAccount as UserAccountModel;
 
 class UserAccount extends BaseController
 {
     private $param;
+    private $modelUserAccount;
 
     public function __construct()
     {
@@ -54,7 +53,7 @@ class UserAccount extends BaseController
         if (!isset($this->param['address_id'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
-        
+        return $this->getRes();
     }
 
     /**
@@ -67,7 +66,7 @@ class UserAccount extends BaseController
         {
             return $this->getRes(Error::ERR_PARAM);
         }
-        
+        return $this->getRes();
     }
 
     /**
@@ -76,12 +75,10 @@ class UserAccount extends BaseController
      */
     public function getUser()
     {
-        //默认查询有效的地址
-        //$this->data = Db::table($this->table_name)->where('status',1)->field('create_time,update_time',true)->select();
         if (!isset($this->param['user_id'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
-        
+        return $this->getRes();
     }
 
 
