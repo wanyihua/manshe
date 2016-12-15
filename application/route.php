@@ -17,10 +17,10 @@ return [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
         ':name' => ['index/hello', ['method' => 'post']],
     ],
-    'address/adduseraddress' => 'home/useraddress/addUserAddress',//增加用户地址
-    'address/getuseraddress' => 'home/useraddress/getUseraddress',//查询用户有效地址
-    'address/removeuseraddress' => 'home/useraddress/removeUseraddress',//删除用户地址
-    'address/updateuseraddress' => 'home/useraddress/updateUseraddress',//删除用户地址
+    'address/adduseraddress' => 'home/UserAddress/addUserAddress',//增加用户地址
+    'address/getuseraddress' => 'home/UserAddress/getUserAddress',//查询用户有效地址
+    'address/removeuseraddress' => 'home/UserAddress/removeUseraddress',//删除用户地址
+    'address/updateuseraddress' => 'home/UserAddress/updateUseraddress',//删除用户地址
     'favoritearticle/add' => 'home/api/addFavoriteArticle',//增加收藏帖子
     'favoritearticle/remove' => 'home/api/removeFavoriteArticle',//删除收藏帖子
     'favoritearticle/get' => 'home/api/getFavoriteArticle',//获取收藏帖子列表
