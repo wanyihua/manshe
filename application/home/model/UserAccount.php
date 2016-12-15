@@ -10,6 +10,11 @@ namespace app\home\model;
 
 use think\Model;
 
+<<<<<<< HEAD
+use app\library\Flag;
+
+=======
+>>>>>>> d271f4aea5b565eb718d7f51847b49460403502f
 class UserAccount extends Model
 {
     //set talbename

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:application/library/Base.php
 <?php
 /**
  * Create By: PhpStorm
@@ -44,3 +45,51 @@ class Base extends Controller
     }
 
 }
+=======
+<?php
+/**
+ * Create By: PhpStorm
+ * User: yihua
+ * File: Base.php
+ * Date: 2016/12/10
+ * Time: 17:50
+ */
+
+namespace app\library;
+use think\Controller;
+use app\library\Error;
+
+
+class Base extends Controller
+{
+    protected $errno;//返回值
+    protected $data;//返回数据
+    protected $errmsg;//返回信息
+
+    public function __construct()
+    {
+        $this->errno = 0;
+        $this->data = array();
+        $this->errmsg = '';
+    }
+
+    /**
+     * @param int $errno
+     * @param string $errmsg
+     * @return array
+     */
+    protected function getRes($errno = 0, $errmsg = '')
+    {
+        if (!empty($errno)) {
+            $this->errno = $errno;
+        }
+        $this->errmsg = $errmsg == ''? Error::$arr_err_msg[$this->errno]: $errmsg;
+        return array(
+            'errno' => $this->errno,
+            'errmsg' => $this->errmsg,
+            'data' => $this->data,
+        );
+    }
+
+}
+>>>>>>> d271f4aea5b565eb718d7f51847b49460403502f:application/library/Base.php
