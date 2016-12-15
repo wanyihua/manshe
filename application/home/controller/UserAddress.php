@@ -22,14 +22,14 @@ use app\home\model\UserAddress as UserAddressModel;
 class UserAddress extends BaseController
 {
     private $tableUserAddress;
-    private $table_name = 'user_address';
     private $param;
+    private $userAddress;
 
     public function __construct()
     {
         parent::__construct();
         $this->userAddress = new UserAddressModel();
-        $this->tableUserAddress = Db::table('user_address');
+        //$this->tableUserAddress = Db::table('user_address');
         $this->param = Request::instance()->param();
     }
 
@@ -39,14 +39,19 @@ class UserAddress extends BaseController
      */
     public function addUserAddress()
     {
-        // $param = Request::instance()->param();
-
         if (!$this->check($this->param)) {
             return $this->getRes(Error::ERR_PARAM);
         }
+        $arrUserAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
+        //每个用户只能保存5个地址
+        $addressCount = count($arrUserAddress);
+        if ($addressCount >= Flag::ADDRESS_MAX) {
+            return $this->getRes(Error::ERR_USER_ADDRESS_MAX);
+        }
+
+        //如果新增地址设置为默认地址，需要将已经设置的默认地址，置为非默认地址
         if (isset($this->param['is_default'])) {
-            //查找出默认的地址，置为非默认地址
-            $arrUserAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
+            //$arrUserAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
             if ($arrUserAddress != 0) {
                 $conds = array(
                     'user_id' => $this->param['user_id'],
@@ -56,15 +61,9 @@ class UserAddress extends BaseController
                 );
                 $res = $this->userAddress->where($conds)->update($field);
                 if ($res != 0) {
-                    Log::notice("change  old default address status to anti-default,address_id: " . var_export($arrUserAddress, true));
                     Log::notice("change  old default address status to anti-default,address_id: " . json_encode($arrUserAddress));
                 }
             }
-        }
-        //每个用户只能保存5个地址
-        $arrAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
-        if (count($arrAddress) >= Flag::ADDRESS_MAX) {
-            return $this->getRes(Error::ERR_USER_ADDRESS_MAX);
         }
 
         $result = $this->userAddress->addAddress($this->param);
