@@ -19,6 +19,7 @@ class Error{
     const ERR_USER_ADDRESS_REMOVE = -2002;
     const ERR_USER_ADDRESS_MAX = -2003;
     const ERR_USER_ADDRESS_UPDATE = -2004;
+    const ERR_USER_FEEDBACK_ADD = -2005;
 
     static $arr_err_msg = array(
         self::ERR_SUCCESS => 'success',
@@ -28,5 +29,6 @@ class Error{
         self::ERR_USER_ADDRESS_REMOVE => '此地址已经删除',
         self::ERR_USER_ADDRESS_UPDATE => '更新地址失败',
         self::ERR_USER_ADDRESS_MAX => '每个用户最多可以添加5个收货地址',
+        self::ERR_USER_FEEDBACK_ADD => '添加用户反馈失败',
     );
 }

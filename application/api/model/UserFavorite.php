@@ -19,6 +19,7 @@ class UserFavorite extends Model
     //set primary key
     protected $pk = 'id';
 
+
     public function addFavorite($param)
     {
         $param['fav_time'] = time();

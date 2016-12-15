@@ -33,9 +33,9 @@ class UserFavorite extends BaseController
      */
     public function addFavorite()
     {
-        $res =  self::check($this->param);
+        $res =  $this->check();
         if( true !== $res ){
-            //return $this->getRes(Error::ERR_PARAM,Error::$arr_err_msg[Error::ERR_PARAM].': '.$res);
+            return $this->getRes(Error::ERR_PARAM,$res);
         }
         try{
             $res  = $this->userFavorite->addFavorite($this->param);
@@ -91,10 +91,10 @@ class UserFavorite extends BaseController
             'fav_id' => 'require',
         );
         $msg = array(
-            'fav_type.require' => '收藏类型必须',
-            'fav_type.in' => '收藏类型必须正确',
-            'fav_id.require' => '收藏帖子或者商品ID必须',
-            'user_id.require' => '用户名必须',
+            'fav_type.require' => '参数必须包含收藏类型',
+            'fav_type.in' => '参数收藏类型必须正确',
+            'fav_id.require' => '参数必须包含收藏帖子ID或者商品ID',
+            'user_id.require' => '参数必须包含用户名',
         );
         $validate = new Validate($rule,$msg);
         $result = $validate->check($param);
