@@ -15,4 +15,7 @@ class Flag
     const ADDRESS_MAX = 5;
     const ADDRESS_DEFAUL_ON =1;
     const ADDRESS_DEFAUL_OFF =0;
+
+    const USER_FAVORITE_ACTIVE = 1;
+    const USER_FAVORITE_DELETED = 0;
 }
