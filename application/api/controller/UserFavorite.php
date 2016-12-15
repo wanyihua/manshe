@@ -2,7 +2,7 @@
 /**
  * Create By: PhpStorm
  * User: yihua
- * File: Userfavorite.php
+ * File: UserFavorite.php
  * Date: 2016/12/14
  * Time: 0:13
  */
@@ -75,6 +75,7 @@ class UserFavorite extends BaseController
             return $this->getRes(Error::ERR_PARAM);
         }
         $this->data =  $this->userFavorite->getFavorite($this->param['user_id'],$this->param['fav_id']);
+        //TODO: 根据fav_id从商品表或者贴子表中获取更多的详细信息，拼接起来返回
         return $this->getRes();
     }
 
