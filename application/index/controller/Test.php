@@ -1,10 +1,11 @@
 <?php
 namespace app\index\controller;
 
+use think\Controller;
 use think\Db;
 use think\View;
 
-class Test
+class Test extends Controller
 {
     public function test()
     {
