@@ -30,6 +30,7 @@ return [
 
 
     'useraccount/adduser' => 'home/UserAccount/addUser',//新增用户
+    'useraccount/getuserhtml' => 'home/UserAccount/getUserHtml',//新增用户
 
 
 ];
