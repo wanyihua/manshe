@@ -28,12 +28,18 @@ class Base extends Controller
         $this->errmsg = '';
     }
 
+    /**
+     * 初始化操作
+     */
     public function _initialize()
     {
         parent::_initialize();
         $this->checkAuth();
     }
 
+    /**
+     * 验证接口权限
+     */
     public function checkAuth() {
         Log::log("chekauth");
     }
