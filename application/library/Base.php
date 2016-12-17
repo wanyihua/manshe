@@ -27,6 +27,16 @@ class Base extends Controller
         $this->errmsg = '';
     }
 
+    public function _initialize()
+    {
+        parent::_initialize();
+        $this->checkAuth();
+    }
+
+    public function checkAuth() {
+        
+    }
+
     /**
      * @param int $errno
      * @param string $errmsg
