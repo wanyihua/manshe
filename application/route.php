@@ -29,7 +29,7 @@ return [
     'userfeedback/get'  => 'api/UserFeedback/getFeedback',//获取反馈列表
 
 
-    'useraccount/adduser' => 'home/useraccount/addUser',//新增用户
+    'useraccount/adduser' => 'home/userAccount/addUser',//新增用户
 
 
 ];
