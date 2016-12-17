@@ -10,6 +10,7 @@
 namespace app\library;
 use think\Controller;
 use app\library\Error;
+use app\library\RedisMgr;
 use think\Log;
 
 
@@ -28,23 +29,17 @@ class Base extends Controller
         $this->errno = 0;
         $this->data = array();
         $this->errmsg = '';
-    }
 
-    /**
-     * 初始化操作
-     */
-    public function _initialize()
-    {
-        parent::_initialize();
         $this->checkAuth();
     }
+
 
     /**
      * 验证接口权限
      */
     public function checkAuth() {
-        //$this->redis->set('session', 'test');
-        //$sesion = $this->redis->get('session');
+        $this->redis->set('session', 'test');
+        $sesion = $this->redis->get('session');
         Log::log("chekauth".var_export($this->redis) );
     }
 
