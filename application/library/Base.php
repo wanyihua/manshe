@@ -36,11 +36,12 @@ class Base extends Controller
             $this->errno = $errno;
         }
         $this->errmsg = $errmsg == '' ? Error::$arr_err_msg[$this->errno] : $errmsg;
-        return array(
+        $res = array(
             'errno' => $this->errno,
             'errmsg' => $this->errmsg,
             'data' => $this->data,
         );
+        return json_encode($res);
     }
 
 }
