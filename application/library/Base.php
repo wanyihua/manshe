@@ -40,7 +40,7 @@ class Base extends Controller
     public function checkAuth() {
         $this->redis->set('session', 'test');
         $sesion = $this->redis->get('session');
-        Log::log("chekauth".var_export($this->redis) );
+        Log::log("chekauth".$sesion);
     }
 
     /**
