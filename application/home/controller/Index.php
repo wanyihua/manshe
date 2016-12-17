@@ -33,7 +33,7 @@ class Index extends BaseController
      */
     public function index()
     {
-        return $this->fetch('test');
+        return $this->fetch('index');
     }
 
 }
