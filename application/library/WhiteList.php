@@ -11,5 +11,7 @@ namespace app\library;
 
 class WhiteList
 {
-
+    static $arr_method = array(
+        'login',
+    );
 }
