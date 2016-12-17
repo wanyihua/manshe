@@ -9,8 +9,8 @@ class Test extends Controller
 {
     public function test()
     {
-        $view = new View();
-        $view->assign('aaa', 'hello world!');
-        return $view->fetch('test');
+        //$view = new View();
+        $this->assign('aaa', 'hello world!');
+        return $this->fetch('test');
     }
 }
