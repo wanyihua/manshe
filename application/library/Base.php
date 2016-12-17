@@ -10,6 +10,7 @@
 namespace app\library;
 use think\Controller;
 use app\library\Error;
+use think\Log;
 
 
 class Base extends Controller
@@ -32,7 +33,7 @@ class Base extends Controller
     }
 
     public function checkAuth() {
-        
+        Log::log("chekauth");
     }
 
     /**
