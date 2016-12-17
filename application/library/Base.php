@@ -23,7 +23,7 @@ class Base extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->redis = RedisMgr::getInstance();
+        //$this->redis = RedisMgr::getInstance();
         
         $this->errno = 0;
         $this->data = array();
@@ -45,7 +45,7 @@ class Base extends Controller
     public function checkAuth() {
         //$this->redis->set('session', 'test');
         //$sesion = $this->redis->get('session');
-        Log::log("chekauth".var_export($this->redis));
+        Log::log("chekauth");
     }
 
     /**
