@@ -21,6 +21,8 @@ class Base extends Controller
 
     public function __construct()
     {
+        parent::__construct();
+        
         $this->errno = 0;
         $this->data = array();
         $this->errmsg = '';
