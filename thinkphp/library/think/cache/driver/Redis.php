@@ -23,7 +23,7 @@ use think\cache\Driver;
 class Redis extends Driver
 {
     protected $options = [
-        'host'       => 'r-m5e373aa301a48d4.redis.rds.aliyuncs.com',
+        'host'       => '10.140.244.55',
         'port'       => 6379,
         'password'   => '1234Qwer',
         'select'     => 0,
