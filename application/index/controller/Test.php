@@ -10,5 +10,6 @@ class Test
     {
         $view = new View();
         $view->assign('aaa', 'hello world!');
+        return $view->fetch('test');
     }
 }
