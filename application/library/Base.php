@@ -18,10 +18,12 @@ class Base extends Controller
     protected $errno;//返回值
     protected $data;//返回数据
     protected $errmsg;//返回信息
+    protected $redis;
 
     public function __construct()
     {
         parent::__construct();
+        $this->redis = RedisMgr::getInstance();
         
         $this->errno = 0;
         $this->data = array();
@@ -41,7 +43,9 @@ class Base extends Controller
      * 验证接口权限
      */
     public function checkAuth() {
-        Log::log("chekauth");
+        $this->redis->set('session', 'test');
+        $sesion = $this->redis->get('session');
+        Log::log("chekauth".$sesion);
     }
 
     /**
