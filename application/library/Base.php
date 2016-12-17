@@ -43,9 +43,9 @@ class Base extends Controller
      * 验证接口权限
      */
     public function checkAuth() {
-        $this->redis->set('session', 'test');
-        $sesion = $this->redis->get('session');
-        Log::log("chekauth".$sesion);
+        //$this->redis->set('session', 'test');
+        //$sesion = $this->redis->get('session');
+        Log::log("chekauth".var_export($this->redis));
     }
 
     /**
