@@ -81,6 +81,16 @@ class UserAccount extends BaseController
         return $this->getRes();
     }
 
+    /**
+     * @return array
+     * @DESC 获取用户信息
+     */
+    public function getUserHtml()
+    {
+        $this->assign('aaa', 'hello world!');
+        return $this->fetch('test');
+    }
+
 
     /**
      * @param $param
