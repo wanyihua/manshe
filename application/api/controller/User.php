@@ -26,10 +26,10 @@ class User extends BaseController {
             return $this->getRes(Error::ERR_PARAM);
         }
 
-        return $this->getRes();
+        return $this->getRes(Error::ERR_SUCCESS);
     }
 
     public function logout() {
-        return $this->getRes();
+        return $this->getRes(Error::ERR_SUCCESS);
     }
 }
