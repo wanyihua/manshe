@@ -17,6 +17,8 @@ return [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
         ':name' => ['index/hello', ['method' => 'post']],
     ],
+    'user/login' => 'api/User/login',
+    'user/logout' => 'api/User/logout',
     'address/adduseraddress' => 'home/UserAddress/addUserAddress',//增加用户地址
     'address/getuseraddress' => 'home/UserAddress/getUserAddress',//查询用户有效地址
     'address/removeuseraddress' => 'home/UserAddress/removeUseraddress',//删除用户地址
