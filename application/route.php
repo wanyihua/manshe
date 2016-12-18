@@ -29,7 +29,7 @@ return [
     'userfeedback/get'  => 'api/UserFeedback/getFeedback',//获取反馈列表
 
 
-    'index/index' => 'home/Index/index',//首页
+    'home/index' => 'home/Home/index',//首页
     'useraccount/adduser' => 'home/UserAccount/addUser',//新增用户
     'useraccount/getuserhtml' => 'home/UserAccount/getUserHtml',//新增用户
 
