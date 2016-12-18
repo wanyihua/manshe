@@ -16,6 +16,7 @@ class User extends BaseController {
     private $param;
 
     public function __construct() {
+        parent::__construct();
         $this->param = Request::instance()->param();
     }
 
