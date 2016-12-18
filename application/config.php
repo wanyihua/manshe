@@ -123,7 +123,7 @@ return [
         // 模板引擎类型 支持 php think 支持扩展
         'type'         => 'Think',
         // 模板路径
-        'view_path'    => APP_PATH . 'index/view/',
+        'view_path'    => ROOT_PATH . 'public/static/',
         // 模板后缀
         'view_suffix'  => 'html',
         // 模板文件名分隔符
@@ -139,7 +139,9 @@ return [
     ],
 
     // 视图输出字符串内容替换
-    'view_replace_str'       => [],
+    'view_replace_str'       => [
+        '__INDEX__' => '/public/static/home'
+    ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
