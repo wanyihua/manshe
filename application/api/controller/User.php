@@ -26,7 +26,7 @@ class User extends BaseController {
             || !isset($this->param['credential'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
-
+        
         return $this->getRes(Error::ERR_SUCCESS);
     }
 

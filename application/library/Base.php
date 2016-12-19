@@ -24,13 +24,11 @@ class Base extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->redis = RedisMgr::getInstance();
+        $this->redis = RedisMgr::getInstance([]);
         
         $this->errno = 0;
         $this->data = array();
         $this->errmsg = '';
-
-        $this->checkAuth();
     }
 
 
