@@ -236,6 +236,19 @@ function admin_permission_del(obj,id){
 	});
 }
 
+/*管理员-新增*/
+function admin_add(obj,id){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            console.log('success');
+            console.log(document.getElementsByName('username')[0].value);
+            console.log(document.getElementsByName('passwd')[0].value);
+        }
+    }
+    xmlhttp.open("POST", "/admin/add?user_name=aaa&passwd=a", true);
+    xmlhttp.send();
+}
 /*管理员-编辑-保存*/
 function admin_edit_save(obj,id){
 	var i = parent.layer.getFrameIndex();
@@ -259,7 +272,6 @@ function admin_start(obj,id){
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function () {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            
 			$(obj).parents("tr").find(".admin-manage").prepend('<a style="text-decoration:none" onClick="admin_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="icon-hand-down"></i></a>');
 			$(obj).parents("tr").find(".admin-status").html('<span class="label label-success">已启用</span>');
 			$(obj).remove();
