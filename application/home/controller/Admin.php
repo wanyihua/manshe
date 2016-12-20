@@ -41,6 +41,10 @@ class Admin extends BaseController
         if ($strErrmsg) {
             return $this->getRes(Error::ERR_PARAM, $strErrmsg);
         }
+        $ret = $this->modelAdmin->addAdmin($this->param);
+        if (false === $ret) {
+            return $this->getRes(Error::ERR_SYS);
+        }
         return $this->getRes();
     }
 
