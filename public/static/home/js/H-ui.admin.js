@@ -243,7 +243,7 @@ function admin_add(obj,id){
     var password   = $(obj).parents("form").find(".input-text").eq(1).val();
     var repassword = $(obj).parents("form").find(".input-text").eq(2).val();
     if (password != repassword) {
-        alert("二次密码不一致！");
+        alert("二次密码不一致！"); 
         return;
     }
     xmlhttp.onreadystatechange = function () {
