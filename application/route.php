@@ -32,6 +32,10 @@ return [
 
 
     'home/index' => 'home/Home/index',//首页
+    
+    'admin/add' => 'home/Admin/addAdmin',//新增管理员
+    'admin/del' => 'home/Admin/removeAdmin',//删除管理员
+    
     'useraccount/adduser' => 'home/UserAccount/addUser',//新增用户
     'useraccount/getuserhtml' => 'home/UserAccount/getUserHtml',//新增用户
 
