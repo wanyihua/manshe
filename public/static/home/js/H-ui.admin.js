@@ -259,6 +259,7 @@ function admin_start(obj,id){
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function () {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            
 			$(obj).parents("tr").find(".admin-manage").prepend('<a style="text-decoration:none" onClick="admin_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="icon-hand-down"></i></a>');
 			$(obj).parents("tr").find(".admin-status").html('<span class="label label-success">已启用</span>');
 			$(obj).remove();

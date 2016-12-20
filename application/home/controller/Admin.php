@@ -96,8 +96,10 @@ class Admin extends BaseController
             'passwd' => 'require|max:16',
         ];
         $msg = [
-            'user_name.require' => '名称必须且最多16个字符',
-            'passwd.require'    => '昵称最多不能超过16个字符',
+            'user_name.require' => '用户名必须有',
+            'user_name.max'     => '用户名最多16个字符',
+            'passwd.require'    => '密码必须有',
+            'passwd.max'        => '密码最多16个字符',
         ];
         $validate = new Validate($rule, $msg);
         $result = $validate->check($param);
