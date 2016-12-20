@@ -238,15 +238,21 @@ function admin_permission_del(obj,id){
 
 /*管理员-新增*/
 function admin_add(obj,id){
-    var xmlhttp = new XMLHttpRequest();
+    var xmlhttp    = new XMLHttpRequest();
+    var username   = $(obj).parents("form").find(".input-text").eq(0).val();
+    var password   = $(obj).parents("form").find(".input-text").eq(1).val();
+    var repassword = $(obj).parents("form").find(".input-text").eq(2).val();
+    if (password != repassword) {
+        alert("二次密码不一致！");
+        return;
+    }
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log('success');
-            console.log(document.getElementsByName('username')[0].value);
-            console.log(document.getElementsByName('passwd')[0].value);
+            alert("创建管理员账号成功！");
         }
     }
-    xmlhttp.open("POST", "/admin/add?user_name=aaa&passwd=a", true);
+    var url = "/admin/add?user_name=" + username + "&passwd=" + password;
+    xmlhttp.open("POST", url, true);
     xmlhttp.send();
 }
 /*管理员-编辑-保存*/
