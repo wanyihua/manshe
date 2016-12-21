@@ -18,6 +18,11 @@ class UserAccount extends Model
     //set primary key
     protected $pk = 'id';
 
-
+    public function addUserAccount($param)
+    {
+        $param['update_time'] = time();
+        $this->data($param);
+        return $this->save();
+    }
 
 }
