@@ -236,6 +236,25 @@ function admin_permission_del(obj,id){
 	});
 }
 
+/*管理员-新增*/
+function admin_add(obj,id){
+    var xmlhttp    = new XMLHttpRequest();
+    var username   = $(obj).parents("form").find(".input-text").eq(0).val();
+    var password   = $(obj).parents("form").find(".input-text").eq(1).val();
+    var repassword = $(obj).parents("form").find(".input-text").eq(2).val();
+    if (password != repassword) {
+        alert("二次密码不一致！"); 
+        return;
+    }
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            alert("创建管理员账号成功！");
+        }
+    }
+    var url = "/admin/add?user_name=" + username + "&passwd=" + password;
+    xmlhttp.open("POST", url, true);
+    xmlhttp.send();
+}
 /*管理员-编辑-保存*/
 function admin_edit_save(obj,id){
 	var i = parent.layer.getFrameIndex();
@@ -256,9 +275,16 @@ function admin_stop(obj,id){
 }
 /*管理员-启用*/
 function admin_start(obj,id){
-	$(obj).parents("tr").find(".admin-manage").prepend('<a style="text-decoration:none" onClick="admin_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="icon-hand-down"></i></a>');
-	$(obj).parents("tr").find(".admin-status").html('<span class="label label-success">已启用</span>');
-	$(obj).remove();
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function () {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			$(obj).parents("tr").find(".admin-manage").prepend('<a style="text-decoration:none" onClick="admin_stop(this,\'10001\')" href="javascript:;" title="停用"><i class="icon-hand-down"></i></a>');
+			$(obj).parents("tr").find(".admin-status").html('<span class="label label-success">已启用</span>');
+			$(obj).remove();
+		}
+	}
+	xmlhttp.open("POST", "", true);
+	xmlhttp.send();
 }
 /*------------系统管理--------------*/
 /*系统管理-日志-删除*/
