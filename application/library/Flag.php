@@ -18,4 +18,11 @@ class Flag
 
     const USER_FAVORITE_ACTIVE = 1;
     const USER_FAVORITE_DELETED = 0;
+
+    // 登录类型
+    const IDENTIFY_TYPE_PHONE = 1;
+    const IDENTIFY_TYPE_WEIXIN = 2;
+    const IDENTIFY_TYPE_WEIBO = 3;
+    const IDENTIFY_TYPE_EMAIL = 4;
+
 }
