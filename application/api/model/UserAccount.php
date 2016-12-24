@@ -25,7 +25,9 @@ class UserAccount extends Model
     }
 
     public function updateUserAccount($param) {
-
+        $field = array();
+        $conds = array();
+        return $this->isUpdate(true)->save($field,$conds);
     }
 
     public function getUserAccount($param) {

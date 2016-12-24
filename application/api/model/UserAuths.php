@@ -25,7 +25,9 @@ class UserAuths extends Model
     }
 
     public function updateUserAuths($param) {
-
+        $field = array();
+        $conds = array();
+        return $this->isUpdate(true)->save($field,$conds);
     }
 
     public function getUserAuths($param) {
@@ -33,7 +35,7 @@ class UserAuths extends Model
             'identity_type' => $param['identity_type'],
             'identifier' => $param['identifier'],
         );
-        $field= 'user_id';
+        $field= 'user_id,credential';
         return Db::table($this->table)->where($conds)->field($field)->select();
     }
 }
