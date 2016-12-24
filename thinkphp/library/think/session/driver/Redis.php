@@ -19,14 +19,14 @@ class Redis extends SessionHandler
     /** @var \Redis */
     protected $handler = null;
     protected $config  = [
-        'host'         => '127.0.0.1', // redis主机
+        'host'         => 'r-m5e373aa301a48d4.redis.rds.aliyuncs.com', // redis主机
         'port'         => 6379, // redis端口
-        'password'     => '', // 密码
+        'password'     => '1234Qwer', // 密码
         'select'       => 0, // 操作库
         'expire'       => 3600, // 有效期(秒)
         'timeout'      => 0, // 超时时间(秒)
         'persistent'   => true, // 是否长连接
-        'session_name' => '', // sessionkey前缀
+        'session_name' => 'ms_', // sessionkey前缀
     ];
 
     public function __construct($config = [])
