@@ -20,9 +20,20 @@ class UserAccount extends Model
 
     public function addUserAccount($param)
     {
-        $param['update_time'] = time();
         $this->data($param);
         return $this->save();
+    }
+
+    public function updateUserAccount($param) {
+
+    }
+
+    public function getUserAccount($param) {
+        $conds = array(
+            'user_id' => $param['user_id'],
+        );
+        $field= 'user_name,nick_name,phone,flag,age,sex,avatar,level';
+        return Db::table($this->table)->where($conds)->field($field)->select();
     }
 
 }

@@ -24,6 +24,17 @@ class User extends BaseController {
         $this->userAccount = new UserAccountModel();
     }
 
+    /**
+     * @return array
+     */
+    public function register() {
+
+        return array();
+    }
+
+    /**
+     * @return array
+     */
     public function login() {
         if (!isset($this->param['identity_type'])
             || !isset($this->param['identifier'])
@@ -34,11 +45,17 @@ class User extends BaseController {
         return $this->getRes(Error::ERR_SUCCESS);
     }
 
+    /**
+     * @return array
+     */
     public function logout() {
         return $this->getRes(Error::ERR_SUCCESS);
     }
 
-    public function register() {
+    /**
+     * 忘记密码
+     */
+    public function forgot() {
 
     }
 
