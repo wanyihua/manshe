@@ -13,6 +13,7 @@ use think\Request;
 use app\library\Error;
 use app\api\model\UserAccount as UserAccountModel;
 use think\Validate;
+use think\session\driver\Redis;
 
 class User extends BaseController {
     private $param;
