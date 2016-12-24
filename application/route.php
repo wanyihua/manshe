@@ -17,6 +17,7 @@ return [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
         ':name' => ['index/hello', ['method' => 'post']],
     ],
+    'user/register' => 'api/User/register',
     'user/login' => 'api/User/login',
     'user/logout' => 'api/User/logout',
     'address/adduseraddress' => 'home/UserAddress/addUserAddress',//增加用户地址

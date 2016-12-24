@@ -38,7 +38,7 @@ class User extends BaseController {
         return $this->getRes(Error::ERR_SUCCESS);
     }
 
-    public function addUser() {
+    public function register() {
 
     }
 
