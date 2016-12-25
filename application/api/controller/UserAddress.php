@@ -7,7 +7,7 @@
  * Time: 23:48
  */
 
-namespace app\home\controller;
+namespace app\api\controller;
 
 use think\Request;
 use think\Validate;
@@ -17,11 +17,11 @@ use think\Log;
 use app\library\Base as BaseController;
 use app\library\Error;
 use app\library\Flag;
-use app\home\model\UserAddress as UserAddressModel;
+use app\api\model\UserAddress as UserAddressModel;
 
 class UserAddress extends BaseController
 {
-    private $tableUserAddress;
+    //private $tableUserAddress;
     private $param;
     private $userAddress;
 
