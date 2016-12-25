@@ -57,7 +57,8 @@ class Base extends Controller
             'errmsg' => $this->errmsg,
             'data' => $this->data,
         );
-        return json_encode($res);
+        //return json_encode($res);
+        return $res;
     }
 
 }

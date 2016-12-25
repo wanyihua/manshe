@@ -19,6 +19,9 @@ class Flag
     const USER_FAVORITE_ACTIVE = 1;
     const USER_FAVORITE_DELETED = 0;
 
+    const USER_COUPON_VALID = 1;
+    const USER_CONPON_INVALID = 0;
+
     // 登录类型
     const IDENTIFY_TYPE_PHONE = 1;
     const IDENTIFY_TYPE_WEIXIN = 2;

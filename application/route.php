@@ -10,30 +10,33 @@
 // +----------------------------------------------------------------------
 
 return [
+    /*
     '__pattern__' => [
         'name' => '\w+',
     ],
+
     '[hello]'     => [
-        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
+       //':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
         ':name' => ['index/hello', ['method' => 'post']],
     ],
+*/
     'user/register' => 'api/User/register',
     'user/login' => 'api/User/login',
     'user/logout' => 'api/User/logout',
-    'address/adduseraddress' => 'home/UserAddress/addUserAddress',//增加用户地址
-    'address/getuseraddress' => 'home/UserAddress/getUserAddress',//查询用户有效地址
-    'address/removeuseraddress' => 'home/UserAddress/removeUseraddress',//删除用户地址
-    'address/updateuseraddress' => 'home/UserAddress/updateUseraddress',//删除用户地址
-    'userfavorite/add' => 'api/UserFavorite/addFavorite',//增加收藏帖子
-    'userfavorite/remove' => 'api/UserFavorite/removeFavorite',//删除收藏帖子
-    'userfavorite/get' => 'api/UserFavorite/getFavorite',//获取收藏帖子列表
-
-    'userfeedback/add'  => 'api/UserFeedback/addFeedback',//增加用户反馈
-    'userfeedback/get'  => 'api/UserFeedback/getFeedback',//获取反馈列表
-
+    //个人中心
+    'address/adduseraddress' => ['home/UserAddress/addUserAddress',['method' => 'get']],//增加用户地址
+    'address/getuseraddress' => ['home/UserAddress/getUserAddress',['method' => 'get']],//查询用户有效地址
+    'address/removeuseraddress' => ['home/UserAddress/removeUseraddress',['method' => 'get']],//删除用户地址
+    'address/updateuseraddress' => ['home/UserAddress/updateUseraddress',['method' => 'get']],//删除用户地址
+    'userfavorite/add' => ['api/UserFavorite/addFavorite',['method' => 'get']],//增加收藏帖子
+    'userfavorite/remove' => ['api/UserFavorite/removeFavorite',['method' => 'get']],//删除收藏帖子
+    'userfavorite/get' => ['api/UserFavorite/getFavorite',['method' => 'get']],//获取收藏帖子列表
+    'userfeedback/add'  => ['api/UserFeedback/addFeedback',['method' => 'post']],//增加用户反馈
+    'userfeedback/get'  => ['api/UserFeedback/getFeedback',['method' => 'get']],//获取反馈列表
+    'coupon/getcouponlist' =>  ['api/UserCoupon/getCouponList', ['method' => 'get']],//获取用户优惠券
+    'coupon/addcoupon' =>  ['api/UserCoupon/addCoupon', ['method' => 'get']],//获取用户优惠券
 
     'home/index' => 'home/Home/index',//首页
-    
     'admin/add' => 'home/Admin/addAdmin',//新增管理员
     'admin/del' => 'home/Admin/removeAdmin',//删除管理员
     
