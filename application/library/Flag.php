@@ -25,4 +25,11 @@ class Flag
     const IDENTIFY_TYPE_WEIBO = 3;
     const IDENTIFY_TYPE_EMAIL = 4;
 
+    static $arr_identify_type = array(
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        4 => 4,
+    );
+
 }

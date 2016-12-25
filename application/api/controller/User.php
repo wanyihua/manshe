@@ -16,6 +16,7 @@ use app\api\model\UserAuths as UserAuthsModel;
 use think\Validate;
 use think\session\driver\Redis;
 use app\library\Flag;
+use app\library\Common;
 
 class User extends BaseController {
     private $param;
@@ -34,15 +35,32 @@ class User extends BaseController {
      */
     public function register() {
         if (!isset($this->param['identity_type'])
+            || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
             || !isset($this->param['identifier'])
             || !isset($this->param['credential'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
 
+        $time = time();
+        $user_id = Common::gererateUserid();
+        $addUserAccount = array();
+        $addUserAccount['user_id'] = $user_id;
+        $addUserAccount['create_time'] = $time;
+        $addUserAccount['upate_time'] = $time;
+        $result = $this->userAccount->addUserAccount($addUserAccount);
+        if ($result) {
+            $addUserAuths = array();
+            $addUserAuths['user_id'] = $user_id;
+            $addUserAuths['identity_type'] = $this->param['identity_type'];
+            $addUserAuths['identifier'] = $this->param['identifier'];
+            $addUserAuths['credential'] = $this->param['credential'];
+            $this->userAuths->saveUserAuths($addUserAuths);
+        }
+
         // 手机号注册
         if (Flag::IDENTIFY_TYPE_PHONE == $this->param['identity_type']) {
-            
-        }
+
+        } 
 
         // 微信
         if (Flag::IDENTIFY_TYPE_WEIXIN == $this->param['identity_type']) {
