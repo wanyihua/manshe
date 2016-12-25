@@ -12,43 +12,17 @@ use app\library\RedisMgr;
 
 class Redis
 {
-// Redis Key 前缀
-    const REDIS_SEESSION_PRE = 'ms:'; // SESSION前缀
+     // Redis Key 前缀
+    const REDIS_USER_PRE = 'ms:user'; // SESSION前缀
 
-    // SESSION过期时间
-    const REDIS_SESSION_EXPIRE = 7200;
 
     /**
-     * @desc 获取登录session
-     * @param $sessionid
+     * @desc 生成自增ID
+     * @param $autoid
      * @return mixed
      */
-    public static function getSession($sessionid) {
+    public static function getAutoID() {
         $redis = RedisMgr::getInstance([]);
-        return $redis->get($sessionid);
-    }
-
-    /**
-     * @desc 删除登录session
-     * @param $sessionid
-     * @return bool
-     */
-    public static function removeSession($sessionid) {
-        $redis = RedisMgr::getInstance([]);
-        return $redis->rm($sessionid);
-    }
-
-    /**
-     * @desc 设置登录session
-     * @param $sessionid
-     * @return bool
-     */
-    public static function setSession($sessionid) {
-        $options = array(
-            'expire' => Redis::REDIS_SESSION_EXPIRE,
-            'prefix' => Redis::REDIS_SEESSION_PRE,
-        );
-        $redis = RedisMgr::getInstance($options);
-        return $redis->set('token', $sessionid);
+        return $redis->inc(Redis::REDIS_USER_PRE);
     }
 }
