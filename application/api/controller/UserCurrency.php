@@ -63,6 +63,24 @@ class UserCurrency extends BaseController
         return $this->userCurrencyModel->getCurrency($user_id,$currency_type);
     }
 
+    public function getRechargeRule(){
+        $rule = array(
+            array(
+                'coin' => 600,//充值送的漫币
+                'integral' => 300,//充值送的漫豆
+                'price' => 600,//充值金额，单位分
+                'tittle' => '首次充值送',
+            ),
+            array(
+                'coin' => 1010,//充值送的漫币
+                'integral' => 400,//充值送的漫豆
+                'price' => 1000,//充值金额，单位分
+                'tittle' => '',
+            ),
+        );
+        $this->data = $rule;
+        return $this->getRes();
+    }
     public function check($param)
     {
         $rule = [
