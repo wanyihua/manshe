@@ -37,7 +37,7 @@ return [
     'coupon/addcoupon' =>  ['api/UserCoupon/addCoupon', ['method' => 'get']],//获取用户优惠券
     'currency/getcoin' =>  ['api/UserCurrency/getCoin', ['method' => 'get']],//获取用户漫币
     'currency/getintegral' =>  ['api/UserCurrency/getIntegral', ['method' => 'get']],//获取用户漫币
-
+    'currency/rechargerule' =>  ['api/UserCurrency/getRechargeRule', ['method' => 'get']],//充值漫币送漫豆规则
     'home/index' => 'home/Home/index',//首页
     'admin/add' => 'home/Admin/addAdmin',//新增管理员
     'admin/del' => 'home/Admin/removeAdmin',//删除管理员
