@@ -35,6 +35,8 @@ return [
     'userfeedback/get'  => ['api/UserFeedback/getFeedback',['method' => 'get']],//获取反馈列表
     'coupon/getcouponlist' =>  ['api/UserCoupon/getCouponList', ['method' => 'get']],//获取用户优惠券
     'coupon/addcoupon' =>  ['api/UserCoupon/addCoupon', ['method' => 'get']],//获取用户优惠券
+    'currency/getcoin' =>  ['api/UserCurrency/getCoin', ['method' => 'get']],//获取用户漫币
+    'currency/getintegral' =>  ['api/UserCurrency/getIntegral', ['method' => 'get']],//获取用户漫币
 
     'home/index' => 'home/Home/index',//首页
     'admin/add' => 'home/Admin/addAdmin',//新增管理员

@@ -10,17 +10,18 @@ namespace app\library;
 
 class Flag
 {
-    const ADDRESS_STATUS_ACTIVE = 1;
-    const ADDRESS_STATUS_DELETED =0;
-    const ADDRESS_MAX = 5;
-    const ADDRESS_DEFAUL_ON =1;
-    const ADDRESS_DEFAUL_OFF =0;
-
-    const USER_FAVORITE_ACTIVE = 1;
-    const USER_FAVORITE_DELETED = 0;
-
-    const USER_COUPON_VALID = 1;
-    const USER_CONPON_INVALID = 0;
+    const ADDRESS_STATUS_ACTIVE = 1; //用户有效地址
+    const ADDRESS_STATUS_DELETED =0; //用户删除地址
+    const ADDRESS_MAX = 5; //用户最多设置地址
+    const ADDRESS_DEFAUL_ON =1; //默认地址
+    const ADDRESS_DEFAUL_OFF =0; //非默认地址
+    const USER_FAVORITE_ACTIVE = 1; //用户收藏
+    const USER_FAVORITE_DELETED = 0; // 用户删除的收藏
+    const USER_COUPON_VALID = 1; //用户有效优惠券
+    const USER_COUPON_INVALID = 0; //无效优惠券
+    const USER_COUPON_USED = 2; //使用过的优惠券
+    const CURRENCY_TYPE_COIN = 1; //漫币
+    const CURENCY_TYPE_INTEGRAL = 2; //漫豆
 
     // 登录类型
     const IDENTIFY_TYPE_PHONE = 1;
