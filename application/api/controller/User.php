@@ -22,12 +22,14 @@ class User extends BaseController {
     private $param;
     private $userAccount;
     private $userAuths;
+    private $redis;
 
     public function __construct() {
         parent::__construct();
         $this->param = Request::instance()->param();
         $this->userAccount = new UserAccountModel();
         $this->userAuths =  new UserAuthsModel();
+        $this->redis = new Redis();
     }
 
     /**
@@ -42,15 +44,13 @@ class User extends BaseController {
         }
 
         $time = time();
-        $user_id = Common::gererateUserid();
         $addUserAccount = array();
-        $addUserAccount['user_id'] = $user_id;
         $addUserAccount['create_time'] = $time;
         $addUserAccount['upate_time'] = $time;
-        $result = $this->userAccount->addUserAccount($addUserAccount);
-        if ($result) {
+        $userid = $this->userAccount->addUserAccount($addUserAccount);
+        if ($userid) {
             $addUserAuths = array();
-            $addUserAuths['user_id'] = $user_id;
+            $addUserAuths['user_id'] = $userid;
             $addUserAuths['identity_type'] = $this->param['identity_type'];
             $addUserAuths['identifier'] = $this->param['identifier'];
             $addUserAuths['credential'] = $this->param['credential'];
@@ -91,7 +91,20 @@ class User extends BaseController {
             return $this->getRes(Error::ERR_PARAM);
         }
 
-        $this->data = array();
+        $result = $this->userAuths->getUserAuths($this->param);
+        if ($result) {
+            $userid = $result['user_id'];
+            $identifier =  $result['identifier'];
+            $credential =  $result['credential'];
+            if ($this->param['credential'] == $identifier) {
+                $sessionKey = Common::gererateSession($userid, $identifier, $credential);
+                $this->redis->write($sessionKey, array());
+                $this->data = array(
+                    'session' => $sessionKey,
+                );
+            }
+        }
+
         return $this->getRes();
     }
 

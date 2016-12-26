@@ -21,7 +21,8 @@ class UserAccount extends Model
     public function addUserAccount($param)
     {
         $this->data($param);
-        return $this->save();
+        $this->save();
+        return $this->data[$this->pk];
     }
 
     public function updateUserAccount($param) {

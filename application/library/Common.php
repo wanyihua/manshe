@@ -12,8 +12,7 @@ use app\library\Redis;
 
 class Common
 {
-    public static function gererateUserid() {
-        $time = time();
-        return $time.Redis::getAutoID();
+    public static function gererateSession($userid, $identifier, $credential) {
+        return md5($userid.$identifier.$credential);
     }
 }

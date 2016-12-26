@@ -35,7 +35,7 @@ class UserAuths extends Model
             'identity_type' => $param['identity_type'],
             'identifier' => $param['identifier'],
         );
-        $field= 'user_id,credential';
+        $field= 'user_id,identifier,credential';
         return Db::table($this->table)->where($conds)->field($field)->select();
     }
 }
