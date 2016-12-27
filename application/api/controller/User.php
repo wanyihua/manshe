@@ -9,27 +9,25 @@
 namespace app\api\controller;
 
 use app\library\Base as BaseController;
+use think\Cache;
 use think\Request;
 use app\library\Error;
 use app\api\model\UserAccount as UserAccountModel;
 use app\api\model\UserAuths as UserAuthsModel;
-use think\Validate;
-use think\session\driver\Redis;
 use app\library\Flag;
 use app\library\Common;
+use app\library\Ip;
 
 class User extends BaseController {
     private $param;
     private $userAccount;
     private $userAuths;
-    private $sessionRedis;
 
     public function __construct() {
         parent::__construct();
         $this->param = Request::instance()->param();
         $this->userAccount = new UserAccountModel();
         $this->userAuths =  new UserAuthsModel();
-        $this->sessionRedis = new Redis();
     }
 
     /**
@@ -39,27 +37,31 @@ class User extends BaseController {
         if (!isset($this->param['identity_type'])
             || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
             || !isset($this->param['identifier'])
-            || !isset($this->param['credential'])) {
+            || !isset($this->param['credential'])
+            || !isset($this->param['verification_code'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
 
         $time = time();
-        $addUserAccount = array();
-        $addUserAccount['create_time'] = $time;
-        $addUserAccount['update_time'] = $time;
-        $userid = $this->userAccount->addUserAccount($addUserAccount);
-        if ($userid) {
-            $addUserAuths = array();
-            $addUserAuths['user_id'] = $userid;
-            $addUserAuths['identity_type'] = $this->param['identity_type'];
-            $addUserAuths['identifier'] = $this->param['identifier'];
-            $addUserAuths['credential'] = Common::encodePassword($this->param['credential']);
-            $this->userAuths->saveUserAuths($addUserAuths);
-        }
 
         // 手机号注册
         if (Flag::IDENTIFY_TYPE_PHONE == $this->param['identity_type']) {
-
+            $addUserAccount = array();
+            $addUserAccount['phone'] = $this->param['identifier'];
+            $addUserAccount['reg_ip'] = Ip::getClientIp();
+            $addUserAccount['reg_time'] = $time;
+            $addUserAccount['create_time'] = $time;
+            $addUserAccount['update_time'] = $time;
+            $addUserAccount['extend_info'] = '';
+            $userid = $this->userAccount->addUserAccount($addUserAccount);
+            if ($userid) {
+                $addUserAuths = array();
+                $addUserAuths['user_id'] = $userid;
+                $addUserAuths['identity_type'] = $this->param['identity_type'];
+                $addUserAuths['identifier'] = $this->param['identifier'];
+                $addUserAuths['credential'] = Common::encodePassword($this->param['credential']);
+                $this->userAuths->saveUserAuths($addUserAuths);
+            }
         } 
 
         // 微信
@@ -97,10 +99,11 @@ class User extends BaseController {
             $identifier =  $result['identifier'];
             $credential =  $result['credential'];
             if (Common::encodePassword($this->param['credential']) == $identifier) {
-                $sessionKey = Common::gererateSession($userid, $identifier, $credential);
-                $this->sessionRedis->write($sessionKey, array());
+                $sessionid = Common::gererateSession($userid, $identifier, $credential);
+                Cache::set($userid, $sessionid);
                 $this->data = array(
-                    'session' => $sessionKey,
+                    'userid' => $userid,
+                    'sessionid' => $sessionid,
                 );
             }
         }
@@ -109,38 +112,55 @@ class User extends BaseController {
     }
 
     /**
+     * @desc 退出系统
      * @return array
      */
     public function logout() {
+        if (!isset($this->param['userid'])) {
+            return $this->getRes(Error::ERR_PARAM);
+        }
+
+        // 删除sessionid
+        Cache::rm($this->param['userid']);
+
         $this->data = array();
         return $this->getRes();
     }
 
     /**
-     * 忘记密码
+     * @desc 忘记密码
+     * @return array
      */
     public function forgot() {
+        if (!isset($this->param['identity_type'])
+            || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
+            || !isset($this->param['identifier'])
+            || !isset($this->param['verification_code'])) {
+            return $this->getRes(Error::ERR_PARAM);
+        }
+
+
+
         $this->data = array();
         return $this->getRes();
     }
 
-    public function check($param) {
-        $rule = array(
-            'user_name' => 'require',
-            'nick_name' => 'require',
-            'phone' => 'require',
-        );
-        $msg = array(
-            'user_name.require' => '参数用户名必填',
-            'nick_name.require' => '参数昵称必填',
-            'phone.require' => '参数手机号必填',
-        );
-        $validate = new Validate($rule,$msg);
-        $result = $validate->check($param);
-        if (!$result) {
-            return $validate->getError();
-        } else {
-            return $result;
+    /**
+     * @desc 发送短信并验证手机号码
+     * @return array
+     */
+    public function getVerifyCode() {
+        if (!isset($this->param['identity_type'])
+            || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
+            || !isset($this->param['identifier'])) {
+            return $this->getRes(Error::ERR_PARAM);
         }
+
+        // 验证手机号码
+
+        // 接收到手机号并发送短信
+
+
+        return $this->getRes();
     }
 }

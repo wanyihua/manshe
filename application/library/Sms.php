@@ -6,7 +6,7 @@
  * Date: 2016/12/26
  * Time: 22:48
  */
-//namespace app\library;
+namespace app\library;
 
 
 class SMS
@@ -55,7 +55,7 @@ class SMS
         $data['Signature'] = $this->computeSignature($data, $accessKeySecret);
 
         //$result = $this->xml_to_array($this->https_request($target . http_build_query($data)));
-        $result = $this->https_request($target . http_build_query($data));
+        $result = $this->https_request(Config::SMS_URL . http_build_query($data));
         //echo $result['Error']['Code'] . "--->" . $result['Error']['Message'];
         //var_dump($result);
 

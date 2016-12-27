@@ -20,6 +20,7 @@ return [
         ':name' => ['index/hello', ['method' => 'post']],
     ],
 */
+    'user/getverifycode' => 'api/User/getVerifyCode',
     'user/register' => 'api/User/register',
     'user/login' => 'api/User/login',
     'user/logout' => 'api/User/logout',
