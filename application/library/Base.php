@@ -24,7 +24,7 @@ class Base extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->redis = RedisMgr::getInstance([]);
+        //$this->redis = RedisMgr::getInstance([]);
         
         $this->errno = 0;
         $this->data = array();
@@ -36,6 +36,7 @@ class Base extends Controller
      * 验证接口权限
      */
     public function checkAuth() {
+        $this->redis = RedisMgr::getInstance([]);
         $this->redis->set('session', 'redis is ok');
         $sesion = $this->redis->get('session');
         Log::log("chekauth".$sesion);

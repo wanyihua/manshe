@@ -28,8 +28,8 @@ class Redis extends Driver
         'password'   => '1234Qwer',
         'select'     => 0,
         'timeout'    => 0,
-        'expire'     => 0,
-        'persistent' => false,
+        'expire'     => 3600,
+        'persistent' => true,
         'prefix'     => '',
     ];
 
