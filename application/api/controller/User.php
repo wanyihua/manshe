@@ -22,14 +22,14 @@ class User extends BaseController {
     private $param;
     private $userAccount;
     private $userAuths;
-    private $objRedis;
+    private $sessionRedis;
 
     public function __construct() {
         parent::__construct();
         $this->param = Request::instance()->param();
         $this->userAccount = new UserAccountModel();
         $this->userAuths =  new UserAuthsModel();
-        $this->objRedis = new Redis();
+        $this->sessionRedis = new Redis();
     }
 
     /**
@@ -46,7 +46,7 @@ class User extends BaseController {
         $time = time();
         $addUserAccount = array();
         $addUserAccount['create_time'] = $time;
-        $addUserAccount['upate_time'] = $time;
+        $addUserAccount['update_time'] = $time;
         $userid = $this->userAccount->addUserAccount($addUserAccount);
         if ($userid) {
             $addUserAuths = array();
@@ -98,7 +98,7 @@ class User extends BaseController {
             $credential =  $result['credential'];
             if ($this->param['credential'] == $identifier) {
                 $sessionKey = Common::gererateSession($userid, $identifier, $credential);
-                $this->objRedis->write($sessionKey, array());
+                $this->sessionRedis->write($sessionKey, array());
                 $this->data = array(
                     'session' => $sessionKey,
                 );
