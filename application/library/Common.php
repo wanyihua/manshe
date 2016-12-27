@@ -15,4 +15,8 @@ class Common
     public static function gererateSession($userid, $identifier, $credential) {
         return md5($userid.$identifier.$credential);
     }
+
+    public static function encodePassword($password) {
+        return md5($password);
+    }
 }

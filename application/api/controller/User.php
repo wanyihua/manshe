@@ -53,7 +53,7 @@ class User extends BaseController {
             $addUserAuths['user_id'] = $userid;
             $addUserAuths['identity_type'] = $this->param['identity_type'];
             $addUserAuths['identifier'] = $this->param['identifier'];
-            $addUserAuths['credential'] = $this->param['credential'];
+            $addUserAuths['credential'] = Common::encodePassword($this->param['credential']);
             $this->userAuths->saveUserAuths($addUserAuths);
         }
 
@@ -96,7 +96,7 @@ class User extends BaseController {
             $userid = $result['user_id'];
             $identifier =  $result['identifier'];
             $credential =  $result['credential'];
-            if ($this->param['credential'] == $identifier) {
+            if (Common::encodePassword($this->param['credential']) == $identifier) {
                 $sessionKey = Common::gererateSession($userid, $identifier, $credential);
                 $this->sessionRedis->write($sessionKey, array());
                 $this->data = array(
