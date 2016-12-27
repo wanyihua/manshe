@@ -46,7 +46,7 @@ class User extends BaseController {
         $time = time();
         $addUserAccount = array();
         $addUserAccount['create_time'] = $time;
-        $addUserAccount['upate_time'] = $time;
+        $addUserAccount['update_time'] = $time;
         $userid = $this->userAccount->addUserAccount($addUserAccount);
         if ($userid) {
             $addUserAuths = array();
