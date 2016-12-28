@@ -9,7 +9,9 @@
 namespace app\api\controller;
 
 use app\library\Base as BaseController;
+use app\library\Sms;
 use think\Cache;
+use think\Log;
 use think\Request;
 use app\library\Error;
 use app\api\model\UserAccount as UserAccountModel;
@@ -159,8 +161,11 @@ class User extends BaseController {
         // 验证手机号码
 
         // 接收到手机号并发送短信
-
-
+        $ret = Sms::sendSms($this->param['phone']);
+        if(false === $ret){
+            Log::alert("Send sms failed".json_encode($this->param));
+            $this->getRes(Error::ERR_SYS);
+        }
         return $this->getRes();
     }
 }
