@@ -10,11 +10,13 @@ class Sms {
             Log::alert(__METHOD__.'param: '.json_encode($phone));
             return false;
         }
+        /*
         if (empty($_SESSION['send_code']) or $send_code != $_SESSION['send_code']) {
             //防用户恶意请求
             //Log::alert();
             //return false
         }
+        */
         // 注意使用GMT时间
         date_default_timezone_set("GMT");
         $code = Common::createVerificationCode($phone,6,1);
@@ -52,13 +54,15 @@ class Sms {
     public static function xml_to_array($xml)
     {
         $reg = "/<(\w+)[^>]*>([\\x00-\\xFF]*)<\\/\\1>/";
+        $arr = [];
         if (preg_match_all($reg, $xml, $matches)) {
             $count = count($matches[0]);
             for ($i = 0; $i < $count; $i++) {
                 $subxml = $matches[2][$i];
                 $key = $matches[1][$i];
+
                 if (preg_match($reg, $subxml)) {
-                    $arr[$key] = $this->xml_to_array($subxml);
+                    $arr[$key] = self::xml_to_array($subxml);
                 } else {
                     $arr[$key] = $subxml;
                 }
