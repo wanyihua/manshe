@@ -9,14 +9,16 @@
 
 namespace app\api\controller;
 
+use app\library\Flag;
+use app\library\Sms;
 use think\Request;
 use think\Validate;
 use think\Db;
 use think\Log;
+use app\library\Common;
 
 use app\library\Base as BaseController;
 use app\library\Error;
-use app\library\Flag;
 use app\api\model\UserAddress as UserAddressModel;
 
 class UserAddress extends BaseController
@@ -68,7 +70,7 @@ class UserAddress extends BaseController
 
         $result = $this->userAddress->addAddress($this->param);
         if ($result === false) {
-            return $this->getRess(Error::ERR_SYS);
+            return $this->getRes(Error::ERR_SYS);
         } else {
             return $this->getRes();
         }
@@ -115,6 +117,11 @@ class UserAddress extends BaseController
      */
     public function getUserAddress()
     {
+        //return var_dump(Flag::SMS_EXPIRE_TIME);
+        //return Common::createVerificationCode(18515030719,6,1);
+        return Sms::sendSms('18515030719');
+
+
         //默认查询有效的地址
         //$this->data = Db::table($this->table_name)->where('status',1)->field('create_time,update_time',true)->select();
         if (!isset($this->param['user_id'])) {

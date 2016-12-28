@@ -10,6 +10,7 @@ namespace app\library;
 
 class Flag
 {
+    const SMS_EXPIRE_TIME = 60;
     const ADDRESS_STATUS_ACTIVE = 1; //用户有效地址
     const ADDRESS_STATUS_DELETED =0; //用户删除地址
     const ADDRESS_MAX = 5; //用户最多设置地址

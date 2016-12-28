@@ -27,7 +27,7 @@ class Timer
      * @param [in] $precision: int
      *              返回精度，支持ms和s精度，默认为ms
      */
-    function __construct($start = false, $precision = Bd_Timer::PRECISION_MS)
+    function __construct($start = false, $precision = self::PRECISION_MS)
     {
         $this->precision = $precision;
 
@@ -140,17 +140,17 @@ class Timer
      *              返回精度，支持us/ms/s，默认为ms
      * @return int
      */
-    static function getTimeStamp($precision = Bd_Timer::PRECISION_MS)
+    static function getTimeStamp($precision = self::PRECISION_MS)
     {
         switch($precision)
         {
-            case Bd_Timer::PRECISION_MS:
+            case self::PRECISION_MS:
                 return intval(microtime(true)*1000);
 
-            case Bd_Timer::PRECISION_S:
+            case self::PRECISION_S:
                 return time();
 
-            case Bd_Timer::PRECISION_US:
+            case self::PRECISION_US:
                 return intval(microtime(true)*1000000);
 
             default:

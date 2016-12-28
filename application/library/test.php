@@ -1,5 +1,6 @@
 <?php
 
-require_once('./SMS.php');
-$ret = new SMS();
-$ret->sendSMS();
+require './Sms.php';
+require './Flag.php';
+use app\library\Sms;
+echo Sms::sendSms(18515030719);
