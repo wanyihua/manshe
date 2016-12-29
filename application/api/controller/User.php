@@ -161,7 +161,7 @@ class User extends BaseController {
         // 验证手机号码
 
         // 接收到手机号并发送短信
-        $ret = Sms::sendSms($this->param['phone']);
+        $ret = Sms::sendSms($this->param['identifier']);
         if(false === $ret){
             Log::alert("Send sms failed".json_encode($this->param));
             $this->getRes(Error::ERR_SYS);
