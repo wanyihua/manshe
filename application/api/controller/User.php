@@ -44,15 +44,15 @@ class User extends BaseController {
             return $this->getRes(Error::ERR_PARAM);
         }
 
-        $ret = $this->userAccount->getUserAccountByPhone($this->param['identifier']);
-        if(count($ret) != 0){
-            return $this->getRes(Error::ERR_SUCCESS,'手机号码已经注册过');
-        }
 
         $time = time();
 
         // 手机号注册
         if (Flag::IDENTIFY_TYPE_PHONE == $this->param['identity_type']) {
+            $ret = $this->userAccount->getUserAccountByPhone($this->param['identifier']);
+            if(count($ret) != 0){
+                return $this->getRes(Error::ERR_SUCCESS,'手机号码已经注册过');
+            }
             $addUserAccount = array();
             $addUserAccount['phone'] = $this->param['identifier'];
             $addUserAccount['reg_ip'] = Ip::getClientIp();
