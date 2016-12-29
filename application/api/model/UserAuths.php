@@ -24,16 +24,20 @@ class UserAuths extends Model
         return $this->save();
     }
 
-    public function updateUserAuths($param) {
-        $field = array();
-        $conds = array();
+    public function updateUserAuths($identifier, $credential) {
+        $conds = array(
+            'identifier' => $identifier,
+        );
+        $field = array(
+            'credential' => $credential,
+        );
         return $this->isUpdate(true)->save($field,$conds);
     }
 
-    public function getUserAuths($param) {
+    public function getUserAuths($identity_type, $identifier) {
         $conds = array(
-            'identity_type' => $param['identity_type'],
-            'identifier' => $param['identifier'],
+            'identity_type' => $identity_type,
+            'identifier' => $identifier,
         );
         $field= 'user_id,identifier,credential';
         return Db::table($this->table)->where($conds)->field($field)->select();

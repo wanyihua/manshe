@@ -33,6 +33,7 @@ class User extends BaseController {
     }
 
     /**
+     * @desc 注册
      * @return array
      */
     public function register() {
@@ -44,7 +45,6 @@ class User extends BaseController {
             return $this->getRes(Error::ERR_PARAM);
         }
 
-
         $time = time();
 
         // 手机号注册
@@ -53,6 +53,13 @@ class User extends BaseController {
             if(count($ret) != 0){
                 return $this->getRes(Error::ERR_SUCCESS,'手机号码已经注册过');
             }
+
+            // 验证短信验证码
+            $verfiyCode = Cache::get('sms:'.$this->param['identifier']);
+            if ($this->param['verification_code'] != $verfiyCode) {
+                return $this->getRes(Error::ERR_VERIFY_CODE);
+            }
+
             $addUserAccount = array();
             $addUserAccount['phone'] = $this->param['identifier'];
             $addUserAccount['reg_ip'] = Ip::getClientIp();
@@ -100,7 +107,7 @@ class User extends BaseController {
             return $this->getRes(Error::ERR_PARAM);
         }
 
-        $result = $this->userAuths->getUserAuths($this->param);
+        $result = $this->userAuths->getUserAuths($this->param['identity_type'], $this->param['identifier']);
         if ($result) {
             $userid = $result['user_id'];
             $identifier =  $result['identifier'];
@@ -142,11 +149,19 @@ class User extends BaseController {
         if (!isset($this->param['identity_type'])
                 || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
                 || !isset($this->param['identifier'])
+                || !isset($this->param['credential'])
                 || !isset($this->param['verification_code'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
 
+        // 验证短信验证码
+        $verfiyCode = Cache::get('sms:'.$this->param['identifier']);
+        if ($this->param['verification_code'] != $verfiyCode) {
+            return $this->getRes(Error::ERR_VERIFY_CODE);
+        }
 
+        $credential = Common::encodePassword($this->param['credential']);
+        $result = $this->userAuths->updateUserAuths($this->param['identifier'], $credential);
 
         $this->data = array();
         return $this->getRes();

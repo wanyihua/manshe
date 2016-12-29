@@ -14,6 +14,7 @@ class Error{
     //系统错误以 1 开始
     const ERR_SYS = -1000;
     const ERR_PARAM = -1001;
+    const ERR_VERIFY_CODE = -1002;
     //业务错误以 2 开始
     const ERR_USER_ADDRESS_DUPLICATED = -2001;
     const ERR_USER_ADDRESS_REMOVE = -2002;
@@ -25,6 +26,7 @@ class Error{
         self::ERR_SUCCESS => 'success',
         self::ERR_PARAM => '参数错误',
         self::ERR_SYS => '系统错误',
+        self::ERR_VERIFY_CODE => '验证码错误',
         self::ERR_USER_ADDRESS_DUPLICATED => '收货地址重复',
         self::ERR_USER_ADDRESS_REMOVE => '此地址已经删除',
         self::ERR_USER_ADDRESS_UPDATE => '更新地址失败',
