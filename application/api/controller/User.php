@@ -37,11 +37,16 @@ class User extends BaseController {
      */
     public function register() {
         if (!isset($this->param['identity_type'])
-            || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
-            || !isset($this->param['identifier'])
-            || !isset($this->param['credential'])
-            || !isset($this->param['verification_code'])) {
+                || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
+                || !isset($this->param['identifier'])
+                || !isset($this->param['credential'])
+                || !isset($this->param['verification_code'])) {
             return $this->getRes(Error::ERR_PARAM);
+        }
+
+        $ret = $this->userAccount->getUserAccountByPhone($this->param['identifier']);
+        if(count($ret) != 0){
+            return $this->getRes(Error::ERR_SUCCESS,'手机号码已经注册过');
         }
 
         $time = time();
@@ -62,7 +67,7 @@ class User extends BaseController {
                 $addUserAuths['identity_type'] = $this->param['identity_type'];
                 $addUserAuths['identifier'] = $this->param['identifier'];
                 $addUserAuths['credential'] = Common::encodePassword($this->param['credential']);
-                $this->userAuths->saveUserAuths($addUserAuths);
+                //$this->userAuths->saveUserAuths($addUserAuths);
             }
         } 
 
@@ -90,8 +95,8 @@ class User extends BaseController {
      */
     public function login() {
         if (!isset($this->param['identity_type'])
-            || !isset($this->param['identifier'])
-            || !isset($this->param['credential'])) {
+                || !isset($this->param['identifier'])
+                || !isset($this->param['credential'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
 
@@ -104,9 +109,9 @@ class User extends BaseController {
                 $sessionid = Common::gererateSession($userid, $identifier, $credential);
                 Cache::set($userid, $sessionid);
                 $this->data = array(
-                    'userid' => $userid,
-                    'sessionid' => $sessionid,
-                );
+                        'userid' => $userid,
+                        'sessionid' => $sessionid,
+                        );
             }
         }
 
@@ -135,9 +140,9 @@ class User extends BaseController {
      */
     public function forgot() {
         if (!isset($this->param['identity_type'])
-            || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
-            || !isset($this->param['identifier'])
-            || !isset($this->param['verification_code'])) {
+                || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
+                || !isset($this->param['identifier'])
+                || !isset($this->param['verification_code'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
 
@@ -153,8 +158,8 @@ class User extends BaseController {
      */
     public function getVerifyCode() {
         if (!isset($this->param['identity_type'])
-            || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
-            || !isset($this->param['identifier'])) {
+                || !isset(Flag::$arr_identify_type[$this->param['identity_type']])
+                || !isset($this->param['identifier'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
 

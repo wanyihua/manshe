@@ -33,8 +33,15 @@ class UserAccount extends Model
 
     public function getUserAccount($param) {
         $conds = array(
-            'user_id' => $param['user_id'],
-        );
+                'user_id' => $param['user_id'],
+                );
+        $field= 'user_name,nick_name,phone,flag,age,sex,avatar,level';
+        return Db::table($this->table)->where($conds)->field($field)->select();
+    }
+    public function getUserAccountByPhone($phone) {
+        $conds = array(
+                'phone' => $phone,
+                );
         $field= 'user_name,nick_name,phone,flag,age,sex,avatar,level';
         return Db::table($this->table)->where($conds)->field($field)->select();
     }
