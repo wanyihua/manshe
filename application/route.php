@@ -24,6 +24,7 @@ return [
     'user/register' => 'api/User/register',
     'user/login' => 'api/User/login',
     'user/logout' => 'api/User/logout',
+    'user/forgot' => 'api/User/forgot',
     //个人中心
     'address/adduseraddress' => ['api/UserAddress/addUserAddress',['method' => 'get']],//增加用户地址
     'address/getuseraddress' => ['api/UserAddress/getUserAddress',['method' => 'get']],//查询用户有效地址
