@@ -154,14 +154,23 @@ class User extends BaseController {
             return $this->getRes(Error::ERR_PARAM);
         }
 
-        // 验证短信验证码
-        $verfiyCode = Cache::get('sms:'.$this->param['identifier']);
-        if ($this->param['verification_code'] != $verfiyCode) {
-            return $this->getRes(Error::ERR_VERIFY_CODE);
-        }
+        // 手机号注册
+        if (Flag::IDENTIFY_TYPE_PHONE == $this->param['identity_type']) {
+            $ret = $this->userAccount->getUserAccountByPhone($this->param['identifier']);
+            if(count($ret) == 0){
+                return $this->getRes(Error::ERR_SUCCESS,'手机号码未注册过');
+            }
 
-        $credential = Common::encodePassword($this->param['credential']);
-        $result = $this->userAuths->updateUserAuths($this->param['identifier'], $this->param['identity_type'], $credential);
+            // 验证短信验证码
+            $verfiyCode = Cache::get('sms:'.$this->param['identifier']);
+            if ($this->param['verification_code'] != $verfiyCode) {
+                return $this->getRes(Error::ERR_VERIFY_CODE);
+            }
+
+            $credential = Common::encodePassword($this->param['credential']);
+            $result = $this->userAuths->updateUserAuths($this->param['identifier'], $this->param['identity_type'], $credential);
+
+        }
 
         $this->data = array();
         return $this->getRes();
@@ -179,7 +188,10 @@ class User extends BaseController {
         }
 
         // 验证手机号码
-
+        if (!Common::isMobile($this->param['identifier'])) {
+            return $this->getRes(Error::ERR_SUCCESS,'手机号码错误');
+        }
+        
         // 接收到手机号并发送短信
         $ret = Sms::sendSms($this->param['identifier']);
         if(false === $ret){
