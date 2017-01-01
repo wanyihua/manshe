@@ -109,16 +109,18 @@ class User extends BaseController {
 
         $result = $this->userAuths->getUserAuths($this->param['identity_type'], $this->param['identifier']);
         if ($result) {
-            $userid = $result['user_id'];
-            $identifier =  $result['identifier'];
-            $credential =  $result['credential'];
-            if (Common::encodePassword($this->param['credential']) == $identifier) {
+            $userid = $result[0]['user_id'];
+            $identifier =  $result[0]['identifier'];
+            $credential =  $result[0]['credential'];
+            if (Common::encodePassword($this->param['credential']) == $credential) {
                 $sessionid = Common::gererateSession($userid, $identifier, $credential);
-                Cache::set($userid, $sessionid);
+                Cache::set('userid:'.$userid, $sessionid);
                 $this->data = array(
                         'userid' => $userid,
                         'sessionid' => $sessionid,
-                        );
+                );
+            } else {
+                return $this->getRes(Error::ERR_SUCCESS,'密码错误');
             }
         }
 
@@ -191,7 +193,7 @@ class User extends BaseController {
         if (!Common::isMobile($this->param['identifier'])) {
             return $this->getRes(Error::ERR_SUCCESS,'手机号码错误');
         }
-        
+
         // 接收到手机号并发送短信
         $ret = Sms::sendSms($this->param['identifier']);
         if(false === $ret){
