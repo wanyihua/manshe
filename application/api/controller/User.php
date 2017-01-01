@@ -135,7 +135,7 @@ class User extends BaseController {
         }
 
         // 删除sessionid
-        Cache::rm($this->param['userid']);
+        Cache::rm('userid:'.$this->param['userid']);
 
         $this->data = array();
         return $this->getRes();
