@@ -177,7 +177,7 @@ class User extends BaseController {
         $this->data = array();
         return $this->getRes();
     }
-
+    
     /**
      * @desc 发送短信并验证手机号码
      * @return array

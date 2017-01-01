@@ -10,7 +10,8 @@
 namespace app\library;
 use think\Controller;
 use app\library\Error;
-use app\library\RedisMgr;
+use think\Cache;
+use think\Request;
 use think\Log;
 
 
@@ -20,12 +21,12 @@ class Base extends Controller
     protected $data;//返回数据
     protected $errmsg;//返回信息
     protected $redis;
+    protected $param;
 
     public function __construct()
     {
         parent::__construct();
-        //$this->redis = RedisMgr::getInstance([]);
-        
+        $this->param = Request::instance()->param();
         $this->errno = 0;
         $this->data = array();
         $this->errmsg = '';
@@ -36,10 +37,13 @@ class Base extends Controller
      * 验证接口权限
      */
     public function checkAuth() {
-        $this->redis = RedisMgr::getInstance([]);
-        $this->redis->set('session', 'redis is ok');
-        $sesion = $this->redis->get('session');
-        Log::log("chekauth".$sesion);
+        $requestid = $this->param['sessionid'];
+        $sessionid = Cache::get('userid:'.$this->param['userid']);
+
+        if ($requestid != $sessionid) {
+            return $this->getRes(Error::ERR_SUCCESS,'未登录');
+        }
+        
     }
 
     /**
