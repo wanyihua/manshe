@@ -43,7 +43,6 @@ class Base extends Controller
         if ($requestid != $sessionid) {
             return $this->getRes(Error::ERR_SUCCESS,'未登录');
         }
-        
     }
 
     /**
