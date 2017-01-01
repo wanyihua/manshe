@@ -41,8 +41,9 @@ class Base extends Controller
         $sessionid = Cache::get('userid:'.$this->param['userid']);
 
         if ($requestid != $sessionid) {
-            return $this->getRes(Error::ERR_SUCCESS,'未登录');
+            return false;
         }
+        return true;
     }
 
     /**
