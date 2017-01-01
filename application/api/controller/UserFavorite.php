@@ -9,7 +9,6 @@
 
 namespace app\api\controller;
 use think\Log;
-use think\Request;
 use app\library\Base as BaseController;
 use app\library\Error;
 use app\api\model\UserFavorite as UserFavoriteModel;
@@ -24,7 +23,6 @@ class UserFavorite extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->param = Request::instance()->param();
         $this->userFavorite = new UserFavoriteModel();
     }
 

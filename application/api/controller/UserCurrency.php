@@ -11,7 +11,6 @@ namespace app\api\controller;
 use think\Validate;
 use app\library\Error;
 use app\library\Flag;
-use think\Request;
 use think\Log;
 use app\library\Base as BaseController;
 use app\api\model\UserCurrency as UserCurrencyModel;
@@ -25,7 +24,6 @@ class UserCurrency extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->param = Request::instance()->param();
         $this->userCurrencyModel = new UserCurrencyModel();
     }
 

@@ -13,7 +13,6 @@ use app\library\Error;
 
 use app\library\Flag;
 use think\Log;
-use think\Request;
 
 class UserCoupon extends BaseController {
 
@@ -21,7 +20,6 @@ class UserCoupon extends BaseController {
     private $userCouponModel;
     public function __construct(){
         parent::__construct();
-        $this->param = Request::instance()->param();
         $this->userCouponModel = new UserCouponModel();
     }
 

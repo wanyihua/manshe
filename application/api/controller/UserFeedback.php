@@ -11,7 +11,6 @@ namespace app\api\controller;
 
 use app\library\Error;
 use think\Exception;
-use think\Request;
 use think\Validate;
 use app\library\Base as BaseController;
 use app\api\model\UserFeedback as UserFeedbackModel;
@@ -24,7 +23,6 @@ class UserFeedback extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->param = Request::instance()->param();
         $this->userFeedback = new UserFeedbackModel();
     }
 

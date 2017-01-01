@@ -11,7 +11,6 @@ namespace app\api\controller;
 
 use app\library\Flag;
 use app\library\Sms;
-use think\Request;
 use think\Validate;
 use think\Db;
 use think\Log;
@@ -24,7 +23,6 @@ use app\api\model\UserAddress as UserAddressModel;
 class UserAddress extends BaseController
 {
     //private $tableUserAddress;
-    private $param;
     private $userAddress;
 
     public function __construct()
@@ -32,7 +30,6 @@ class UserAddress extends BaseController
         parent::__construct();
         $this->userAddress = new UserAddressModel();
         //$this->tableUserAddress = Db::table('user_address');
-        $this->param = Request::instance()->param();
     }
 
     /**
