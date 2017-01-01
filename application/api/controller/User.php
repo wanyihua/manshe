@@ -12,7 +12,6 @@ use app\library\Base as BaseController;
 use app\library\Sms;
 use think\Cache;
 use think\Log;
-use think\Request;
 use app\library\Error;
 use app\api\model\UserAccount as UserAccountModel;
 use app\api\model\UserAuths as UserAuthsModel;
@@ -21,13 +20,12 @@ use app\library\Common;
 use app\library\Ip;
 
 class User extends BaseController {
-    private $param;
     private $userAccount;
     private $userAuths;
 
+
     public function __construct() {
         parent::__construct();
-        $this->param = Request::instance()->param();
         $this->userAccount = new UserAccountModel();
         $this->userAuths =  new UserAuthsModel();
     }
@@ -177,7 +175,7 @@ class User extends BaseController {
         $this->data = array();
         return $this->getRes();
     }
-    
+
     /**
      * @desc 发送短信并验证手机号码
      * @return array
