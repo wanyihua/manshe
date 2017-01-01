@@ -161,7 +161,7 @@ class User extends BaseController {
         }
 
         $credential = Common::encodePassword($this->param['credential']);
-        $result = $this->userAuths->updateUserAuths($this->param['identifier'], $credential);
+        $result = $this->userAuths->updateUserAuths($this->param['identifier'], $this->param['identity_type'], $credential);
 
         $this->data = array();
         return $this->getRes();

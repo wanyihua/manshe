@@ -24,8 +24,9 @@ class UserAuths extends Model
         return $this->save();
     }
 
-    public function updateUserAuths($identifier, $credential) {
+    public function updateUserAuths($identifier, $identity_type, $credential) {
         $conds = array(
+            'identity_type' => $identity_type,
             'identifier' => $identifier,
         );
         $field = array(
