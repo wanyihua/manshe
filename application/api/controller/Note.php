@@ -52,6 +52,20 @@ class Note extends BaseController {
         return $this->getRes();
     }
 
+    public function getNote()
+    {
+        if (empty($this->param['note_id'])) {
+            return $this->getRes(Error::ERR_PARAM);
+        }
+
+        $ret = $this->noteModel->getNote($this->param['note_id']);
+        if (false === $ret) {
+            return $this->getRes(Error::ERR_SYS);
+        }
+        $this->data = $ret[0];
+        return $this->getRes();
+    }
+
     /**
      * @param $param
      * @return array|bool

@@ -22,6 +22,10 @@ class Base extends Controller
     protected $errmsg;//返回信息
     protected $redis;
     protected $param;
+    
+    // 分页参数
+    protected $offset;
+    protected $limit;
 
     public function __construct()
     {
@@ -30,6 +34,9 @@ class Base extends Controller
         $this->errno = 0;
         $this->data = array();
         $this->errmsg = '';
+        
+        $this->offset = 0;
+        $this->limit  = 10;
     }
 
 

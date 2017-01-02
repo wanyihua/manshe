@@ -37,10 +37,24 @@ class Note extends Model
      * 获取帖子列表
      * @param $circle_id
      */
-    public function getNoteList($circle_id)
+    public function getNoteList($circle_id, $offset = 0, $limit = 10)
     {
         $arrCond = [
             'cir_id'    => ['=', $circle_id],
+            'is_delete' => ['=', Flag::CONST_NOTE_DELETE_NOT],
+        ];
+        $field= 'category_id,cir_id,title,content,date,creator,create_time';
+        return Db::table($this->table)->where($arrCond)->order('create_time desc')->limit($offset, $limit)->field($field)->select();
+    }
+
+    /**
+     * 获取帖子列表
+     * @param $circle_id
+     */
+    public function getNote($note_id)
+    {
+        $arrCond = [
+            'id'        => ['=', $note_id],
             'is_delete' => ['=', Flag::CONST_NOTE_DELETE_NOT],
         ];
         $field= 'category_id,cir_id,title,content,date,creator,create_time';
