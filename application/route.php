@@ -48,4 +48,6 @@ return [
     'useraccount/getuserhtml' => 'home/UserAccount/getUserHtml',//新增用户
 
 
+    // 社区
+    
 ];
