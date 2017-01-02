@@ -29,6 +29,10 @@ class Flag
     const IDENTIFY_TYPE_WEIXIN = 2;
     const IDENTIFY_TYPE_WEIBO = 3;
     const IDENTIFY_TYPE_EMAIL = 4;
+    
+    // 标记圈子是否被删除
+    const CONST_CIRCLE_DELETE_NOT = 0;
+    const CONST_CIRCLE_DELETED    = 1;
 
     static $arr_identify_type = array(
         1 => 1,
