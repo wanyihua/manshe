@@ -30,9 +30,14 @@ class Flag
     const IDENTIFY_TYPE_WEIBO = 3;
     const IDENTIFY_TYPE_EMAIL = 4;
     
-    // 标记圈子是否被删除
-    const CONST_CIRCLE_DELETE_NOT = 0;
-    const CONST_CIRCLE_DELETED    = 1;
+    // 社区相关
+    const CONST_CIRCLE_DELETE_NOT = 0; // 标记圈子未被删除
+    const CONST_CIRCLE_DELETED    = 1; // 标记圈子被删除
+    const CONST_CIRCLECATEGORY_DELETE_NOT = 0; // 标记圈子分类未被删除
+    const CONST_CIRCLECATEGORY_DELETED    = 1; // 标记圈子分类被删除
+    const CONST_NOTE_DELETE_NOT = 0; // 标记帖子未被删除
+    const CONST_NOTE_DELETED    = 1; // 标记帖子被删除
+    
 
     static $arr_identify_type = array(
         1 => 1,
