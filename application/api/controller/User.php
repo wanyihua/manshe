@@ -53,8 +53,8 @@ class User extends BaseController {
             }
 
             // 验证短信验证码
-            $verfiyCode = Cache::get('sms:'.$this->param['identifier']);
-            if ($this->param['verification_code'] != $verfiyCode) {
+            $verifiyCode = Cache::get('sms:'.$this->param['identifier']);
+            if ($this->param['verification_code'] != $verifiyCode) {
                 return $this->getRes(Error::ERR_VERIFY_CODE);
             }
 
