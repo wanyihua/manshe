@@ -205,4 +205,13 @@ class User extends BaseController {
         }
         return $this->getRes();
     }
+
+    /**
+     * @desc 更新用户信息
+     * @return array
+     */
+    public function update() {
+        $this->data = array();
+        return $this->getRes();
+    }
 }
