@@ -49,7 +49,7 @@ class User extends BaseController {
         if (Flag::IDENTIFY_TYPE_PHONE == $this->param['identity_type']) {
             $ret = $this->userAccount->getUserAccountByPhone($this->param['identifier']);
             if(count($ret) != 0){
-                return $this->getRes(Error::ERR_REGISTERED,'手机号码已经注册过');
+                return $this->getRes(Error::ERR_REGISTERED);
             }
 
             // 验证短信验证码
@@ -123,7 +123,7 @@ class User extends BaseController {
         }
         else
         {
-            return $this->getRes(Error::ERR_USER_NOT_EXIST,'用户不存在');
+            return $this->getRes(Error::ERR_USER_NOT_EXIST);
         }
 
 
@@ -163,7 +163,7 @@ class User extends BaseController {
         if (Flag::IDENTIFY_TYPE_PHONE == $this->param['identity_type']) {
             $ret = $this->userAccount->getUserAccountByPhone($this->param['identifier']);
             if(count($ret) == 0){
-                return $this->getRes(Error::ERR_SUCCESS,'手机号码未注册过');
+                return $this->getRes(Error::ERR_NOT_REGISTERED);
             }
 
             // 验证短信验证码
@@ -194,7 +194,7 @@ class User extends BaseController {
 
         // 验证手机号码
         if (!Common::isMobile($this->param['identifier'])) {
-            return $this->getRes(Error::ERR_SUCCESS,'手机号码错误');
+            return $this->getRes(Error::ERR_PHONE_FORMAT);
         }
 
         // 接收到手机号并发送短信
