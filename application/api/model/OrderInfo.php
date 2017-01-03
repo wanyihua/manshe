@@ -21,6 +21,15 @@ class OrderInfo extends Model
     //set primary key
     protected $pk = 'order_id';
 
+    /**
+     * @desc 增加订单信息
+     * @return int
+     */
+    public function addOrder() {
+        $order_id = $this->getOrderid();
+        return $order_id;
+    }
+
     public function getOrderInfo($order_id) {
         $conds = array(
             'order_id' => $order_id,
@@ -33,7 +42,7 @@ class OrderInfo extends Model
      * @desc 生成订单ID
      * @return int
      */
-    public function getOrderid() {
+    private function getOrderid() {
         $keyPrefix = 'ms:order:';
         $order_id = str_pad(str_replace('.', '', microtime(true)), 14, '0');
         $expireTime = strtotime("+1 day");

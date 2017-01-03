@@ -18,9 +18,14 @@ class OrderGoods extends Model
     //set primary key
     protected $pk = 'auto_id';
 
-    public function getGoodsCategory($param) {
+
+    public function addOrderGoods() {
+        
+    }
+
+    public function getOrderGoods($order_id) {
         $conds = array(
-            'order_id' => $param['order_id'],
+            'order_id' => $order_id,
         );
         $field= '*';
         return Db::table($this->table)->where($conds)->field($field)->select();
