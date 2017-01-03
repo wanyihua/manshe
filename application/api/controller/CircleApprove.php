@@ -24,6 +24,11 @@ class CircleApprove extends BaseController {
         $this->circleApproveModel = new CircleApproveModel();
     }
 
+    /**
+     * 新建圈子审核
+     *
+     * @return array
+     */
     public function addCircleApprove()
     {
         if (!$this->check($this->param)) {
