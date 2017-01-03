@@ -49,5 +49,9 @@ return [
 
 
     // 社区
+
+
+    // 商城
+    'order/getorder' => 'api/Order/getOrder',
     
 ];

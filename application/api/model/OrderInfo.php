@@ -36,7 +36,6 @@ class OrderInfo extends Model
     public function getOrderid() {
         $keyPrefix = 'ms:order:';
         $order_id = str_pad(str_replace('.', '', microtime(true)), 14, '0');
-        $redisKey = $keyPrefix.$order_id;
         $expireTime = strtotime("+1 day");
         $returnKey = 0;
         $loopIndex = 0;
