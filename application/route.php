@@ -54,4 +54,7 @@ return [
     'note/add'         => ['api/Note/addNote', ['method' => 'post']],// 发帖
     'note/getnotelist' => ['api/Note/getNoteList', ['method' => 'get']],// 获取帖子列表
     'note/getnote'     => ['api/Note/getNote', ['method' => 'post']],// 获取帖子详情
+
+    // 商城
+    'order/getorder' => 'api/Order/getOrder',
 ];
