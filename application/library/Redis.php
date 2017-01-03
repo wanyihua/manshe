@@ -25,4 +25,5 @@ class Redis
         $redis = RedisMgr::getInstance([]);
         return $redis->inc(Redis::REDIS_USER_PRE);
     }
+    
 }
