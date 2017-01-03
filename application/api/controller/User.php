@@ -106,7 +106,7 @@ class User extends BaseController {
         }
 
         $result = $this->userAuths->getUserAuths($this->param['identity_type'], $this->param['identifier']);
-        if ($result) {
+        if (count($result)) {
             $userid = $result[0]['user_id'];
             $identifier =  $result[0]['identifier'];
             $credential =  $result[0]['credential'];
@@ -121,6 +121,11 @@ class User extends BaseController {
                 return $this->getRes(Error::ERR_SUCCESS,'密码错误');
             }
         }
+        else
+        {
+            return $this->getRes(Error::ERR_SUCCESS,'用户不存在');
+        }
+
 
         return $this->getRes();
     }
