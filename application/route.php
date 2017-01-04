@@ -49,11 +49,11 @@ return [
 
 
     // 社区
-    'circle/addcircle'     => ['api/Circle/addCircle', ['method' => 'post']],// 新建圈子
-    'circle/approvecircle' => ['api/Circle/approveCircle', ['method' => 'post']],// 审核圈子
-    'note/add'         => ['api/Note/addNote', ['method' => 'post']],// 发帖
-    'note/getnotelist' => ['api/Note/getNoteList', ['method' => 'get']],// 获取帖子列表
-    'note/getnote'     => ['api/Note/getNote', ['method' => 'post']],// 获取帖子详情
+    'circle/addcircle'     => ['api/Circle/addCircle'],// 新建圈子
+    'circle/approvecircle' => ['api/Circle/approveCircle'],// 审核圈子
+    'note/add'             => ['api/Note/addNote'],// 发帖
+    'note/getnotelist'     => ['api/Note/getNoteList'],// 获取帖子列表
+    'note/getnote'         => ['api/Note/getNote'],// 获取帖子详情
 
     // 商城
     'order/getorder' => 'api/Order/getOrder',
