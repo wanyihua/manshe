@@ -26,10 +26,10 @@ return [
     'user/logout' => 'api/User/logout',
     'user/forgot' => 'api/User/forgot',
     //个人中心
-    'address/adduseraddress' => ['api/UserAddress/addUserAddress',['method' => 'get']],//增加用户地址
+    'address/adduseraddress' => ['api/UserAddress/addUserAddress',['method' => 'post']],//增加用户地址
     'address/getuseraddress' => ['api/UserAddress/getUserAddress',['method' => 'get']],//查询用户有效地址
-    'address/removeuseraddress' => ['api/UserAddress/removeUseraddress',['method' => 'get']],//删除用户地址
-    'address/updateuseraddress' => ['api/UserAddress/updateUseraddress',['method' => 'get']],//删除用户地址
+    'address/removeuseraddress' => ['api/UserAddress/removeUseraddress',['method' => 'post']],//删除用户地址
+   'address/updateuseraddress' => ['api/UserAddress/updateUseraddress',['method' => 'post']],//删除用户地址
     'userfavorite/add' => ['api/UserFavorite/addFavorite',['method' => 'get']],//增加收藏帖子
     'userfavorite/remove' => ['api/UserFavorite/removeFavorite',['method' => 'get']],//删除收藏帖子
     'userfavorite/get' => ['api/UserFavorite/getFavorite',['method' => 'get']],//获取收藏帖子列表
