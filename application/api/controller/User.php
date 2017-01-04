@@ -53,8 +53,8 @@ class User extends BaseController {
             }
 
             // 验证短信验证码
-            $verfiyCode = Cache::get('sms:'.$this->param['identifier']);
-            if ($this->param['verification_code'] != $verfiyCode) {
+            $verifiyCode = Cache::get('sms:'.$this->param['identifier']);
+            if ($this->param['verification_code'] != $verifiyCode) {
                 return $this->getRes(Error::ERR_VERIFY_CODE);
             }
 
@@ -203,6 +203,15 @@ class User extends BaseController {
             Log::alert("Send sms failed".json_encode($this->param));
             $this->getRes(Error::ERR_SYS);
         }
+        return $this->getRes();
+    }
+
+    /**
+     * @desc 更新用户信息
+     * @return array
+     */
+    public function update() {
+        $this->data = array();
         return $this->getRes();
     }
 }

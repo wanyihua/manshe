@@ -143,6 +143,18 @@ class Redis extends Driver
     }
 
     /**
+     * 设置键过期时间
+     * @access public
+     * @param string    $name 缓存变量名
+     * @param int       $timestamp 时间
+     * @return false|int
+     */
+    public function expireAt($name, $timestamp) {
+        $key = $this->getCacheKey($name);
+        return $this->handler->expireAt($key, $timestamp);
+    }
+
+    /**
      * 删除缓存
      * @access public
      * @param string $name 缓存变量名
