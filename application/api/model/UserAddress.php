@@ -10,7 +10,6 @@ namespace app\api\model;
 
 use think\Model;
 use think\Db;
-
 use app\library\Flag;
 
 class UserAddress extends Model
@@ -29,7 +28,7 @@ class UserAddress extends Model
     {
         $conds = array(
             'user_id' => ['=',$user_id],
-            'status' => ['=',Flag::ADDRESS_DEFAUL_ON],
+            'status' => ['=',Flag::ADDRESS_STATUS_ACTIVE],
         );
         $field = 'create_time,update_time';
         return Db::table($this->table)->where($conds)->field($field,true)->select();
@@ -81,6 +80,33 @@ class UserAddress extends Model
             $field[$key] = $value;
         }
         return $this->isUpdate(true)->save($field,$conds);
+    }
+
+    /**
+     * @param $address_id
+     * @param $user_id
+     * @return bool
+     * @DESC 设置用户的默认配送地址
+     */
+    public function setDefaultAddress($address_id,$user_id){
+        // 启动事务
+        Db::startTrans();
+        try{
+            $arrUserAddress = Db::table($this->table)->where(['user_id' => $user_id])->select();
+            foreach($arrUserAddress as $arr){
+                if($arr['is_default'] == Flag::ADDRESS_DEFAULT){
+                    Db::table($this->table)->where(['address_id' => $arr['address_id']])->setField(['is_default' => Flag::ADDRESS_NOT_DEFAULT]);
+                }
+            }// 提交事务
+            Db::table($this->table)->where(['address_id' => $address_id])->setField(['is_default' => Flag::ADDRESS_DEFAULT]);
+            Db::commit();
+            return true;
+        } catch (\Exception $e) {
+            var_dump($e);
+            // 回滚事务
+            Db::rollback();
+            return false;
+        }
     }
 
 }
