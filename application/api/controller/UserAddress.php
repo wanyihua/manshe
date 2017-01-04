@@ -10,11 +10,9 @@
 namespace app\api\controller;
 
 use app\library\Flag;
-use app\library\Sms;
 use think\Validate;
 use think\Db;
 use think\Log;
-use app\library\Common;
 
 use app\library\Base as BaseController;
 use app\library\Error;
@@ -23,12 +21,12 @@ use app\api\model\UserAddress as UserAddressModel;
 class UserAddress extends BaseController
 {
     //private $tableUserAddress;
-    private $userAddress;
+    private $userAddressModel;
 
     public function __construct()
     {
         parent::__construct();
-        $this->userAddress = new UserAddressModel();
+        $this->userAddressModel = new UserAddressModel();
         //$this->tableUserAddress = Db::table('user_address');
     }
 
@@ -41,16 +39,17 @@ class UserAddress extends BaseController
         if (!$this->check($this->param)) {
             return $this->getRes(Error::ERR_PARAM);
         }
-        $arrUserAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
+        $arrUserAddress = $this->userAddressModel->getAddressByUserid($this->param['user_id']);
         //每个用户只能保存5个地址
         $addressCount = count($arrUserAddress);
         if ($addressCount >= Flag::ADDRESS_MAX) {
             return $this->getRes(Error::ERR_USER_ADDRESS_MAX);
         }
 
+        /*
         //如果新增地址设置为默认地址，需要将已经设置的默认地址，置为非默认地址
         if (isset($this->param['is_default'])) {
-            //$arrUserAddress = $this->userAddress->getAddressByUserid($this->param['user_id']);
+            //$arrUserAddress = $this->userAddressModel->getAddressByUserid($this->param['user_id']);
             if ($arrUserAddress != 0) {
                 $conds = array(
                     'user_id' => $this->param['user_id'],
@@ -58,14 +57,14 @@ class UserAddress extends BaseController
                 $field = array(
                     'is_default' => Flag::ADDRESS_DEFAUL_OFF,
                 );
-                $res = $this->userAddress->where($conds)->update($field);
+                $res = $this->userAddressModel->where($conds)->update($field);
                 if ($res != 0) {
                     Log::notice("change  old default address status to anti-default,address_id: " . json_encode($arrUserAddress));
                 }
             }
         }
-
-        $result = $this->userAddress->addAddress($this->param);
+        */
+        $result = $this->userAddressModel->addAddress($this->param);
         if ($result === false) {
             return $this->getRes(Error::ERR_SYS);
         } else {
@@ -82,7 +81,7 @@ class UserAddress extends BaseController
         if (!isset($this->param['address_id'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
-        $res = $this->userAddress->removeAddress($this->param['address_id']);
+        $res = $this->userAddressModel->removeAddress($this->param['address_id']);
         if ($res != 0) {
             return $this->getRes();
         } else {
@@ -100,7 +99,7 @@ class UserAddress extends BaseController
         if (!isset($this->param['address_id'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
-        $res = $this->userAddress->updateAddress($this->param);
+        $res = $this->userAddressModel->updateAddress($this->param);
         if (false === $res) {
             return $this->getRes(Error::ERR_USER_ADDRES_UPDATE);
         } else {
@@ -123,7 +122,7 @@ class UserAddress extends BaseController
         if (!isset($this->param['user_id'])) {
             return $this->getRes(Error::ERR_PARAM);
         }
-        $res = $this->userAddress->getAddressByUserid($this->param['user_id']);
+        $res = $this->userAddressModel->getAddressByUserid($this->param['user_id']);
         if ($res) {
             $this->data = $res;
             return $this->getRes();
@@ -132,6 +131,18 @@ class UserAddress extends BaseController
         }
     }
 
+    public function setDefaultAddress()
+    {
+        if (!isset($this->param['address_id']) || !isset($this->param['user_id'])) {
+            Log::alert(__METHOD__ . ' param: ' . json_encode($this->param));
+            return $this->getRes(Error::ERR_PARAM);
+        }
+        $ret = $this->userAddressModel->setDefaultAddress($this->param['address_id'], $this->param['user_id']);
+        if(false === $ret){
+            return $this->getRes(Error::ERR_SYS);
+        }
+        return $this->getRes();
+    }
 
     /**
      * @param $param
