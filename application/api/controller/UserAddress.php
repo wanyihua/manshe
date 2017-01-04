@@ -116,7 +116,6 @@ class UserAddress extends BaseController
     {
         //return var_dump(Flag::SMS_EXPIRE_TIME);
         //return Common::createVerificationCode(18515030719,6,1);
-        return Sms::sendSms('18515030719');
 
 
         //默认查询有效的地址
