@@ -12,10 +12,10 @@ class Flag
 {
     const SMS_EXPIRE_TIME = 60;
     const ADDRESS_STATUS_ACTIVE = 1; //用户有效地址
-    const ADDRESS_STATUS_DELETED =0; //用户删除地址
+    const ADDRESS_STATUS_DELETED = 0; //用户删除地址
     const ADDRESS_MAX = 5; //用户最多设置地址
-    const ADDRESS_DEFAUL_ON =1; //默认地址
-    const ADDRESS_DEFAUL_OFF =0; //非默认地址
+    const ADDRESS_DEFAULT = 1; //默认地址
+    const ADDRESS_NOT_DEFAULT = 0; //非默认地址
     const USER_FAVORITE_ACTIVE = 1; //用户收藏
     const USER_FAVORITE_DELETED = 0; // 用户删除的收藏
     const USER_COUPON_VALID = 1; //用户有效优惠券
